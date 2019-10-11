@@ -8,37 +8,56 @@
         <h3>CS488: Introduction to Computer Graphics Final Project</h3>
       </div>
     </div>
-    <div id="navup">
-      <div id="nav">
+    <div class="navPositioning">
+      <div class="nav" id="nav">
         <router-link to="/">Christina Zhang</router-link>
-        <div id="nav-right">
+        <div class="nav-right">
           <router-link to="/work">Work</router-link>
           <router-link to="/resume">Resume</router-link>
         </div>
       </div>
     </div>
     <div id="content">
-      <markdown filePath="assets/work/ray-tracer/writeup/1-Intro"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/2-ExtraPrimitives"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/3-Refraction"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/4-AntiAliasing"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/5-DepthOfField"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/6-SoftShadows"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/7-PhongShading"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/8-CelShading"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/9-TextureMapping"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/10-BumpMapping"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/11-FinalScene"></markdown>
-      <markdown filePath="assets/work/ray-tracer/writeup/12-Acknowledgements"></markdown>
+      <markdown filePath="work/ray-tracer/writeup/1-Intro"></markdown>
+      <imageGallery :imagesData="imagesData.Primitives" />
+      <markdown filePath="work/ray-tracer/writeup/2-ExtraPrimitives"></markdown>
+      <imageGallery :imagesData="imagesData.Refraction" />
+      <markdown filePath="work/ray-tracer/writeup/3-Refraction"></markdown>
+      <imageGallery :imagesData="imagesData.AntiAliasing" />
+      <markdown filePath="work/ray-tracer/writeup/4-AntiAliasing"></markdown>
+      <imageGallery :imagesData="imagesData.DepthOfField" />
+      <markdown filePath="work/ray-tracer/writeup/5-DepthOfField"></markdown>
+      <imageGallery :imagesData="imagesData.SoftShadows" :initialIndex="2" />
+      <markdown filePath="work/ray-tracer/writeup/6-SoftShadows"></markdown>
+      <imageGallery :imagesData="imagesData.Phong" :initialIndex="1" />
+      <markdown filePath="work/ray-tracer/writeup/7-PhongShading"></markdown>
+      <imageGallery :imagesData="imagesData.CelShading" :initialIndex="1" />
+      <markdown filePath="work/ray-tracer/writeup/8-CelShading"></markdown>
+      <imageGallery :imagesData="imagesData.TextureMapping" />
+      <markdown filePath="work/ray-tracer/writeup/9-TextureMapping"></markdown>
+      <imageGallery :imagesData="imagesData.BumpMapping" />
+      <markdown filePath="work/ray-tracer/writeup/10-BumpMapping"></markdown>
+      <imageGallery :imagesData="imagesData.FinalScene" />
+      <markdown filePath="work/ray-tracer/writeup/11-FinalScene"></markdown>
+      <markdown filePath="work/ray-tracer/writeup/12-Acknowledgements"></markdown>
     </div>
   </div>
 </template>
 
 <script>
 import MarkdownLoader from "../components/MarkdownLoader";
+import ImageGallery from "../components/ImageGallery";
+import * as ImagesData from "../assets/work/ray-tracer/writeup/ImageData";
+
 export default {
   components: {
-    markdown: MarkdownLoader
+    markdown: MarkdownLoader,
+    imageGallery: ImageGallery
+  },
+  data() {
+    return {
+      imagesData: ImagesData
+    };
   }
 };
 </script>
@@ -64,6 +83,7 @@ h1 {
   height: 627px;
   position: relative;
   text-align: center;
+  overflow: hidden;
 }
 
 #headerText {
@@ -76,6 +96,7 @@ h1 {
 
 #headerImg {
   object-fit: cover;
+
   @media only screen and (min-width: 1400px) {
     width: 100%;
     max-height: 100%;
@@ -90,40 +111,9 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
-#navup {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 #nav {
-  position: relative;
-  padding: 16px;
-  margin: 0 auto;
-
-  @media only screen and (min-width: 768px) {
-    /* For desktop: */
-    max-width: 1225px;
-  }
-
-  #nav-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 50%;
-  }
-  #nav-right {
-    float: right;
-  }
   a {
-    font-weight: bold;
     color: #fff;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-    padding: 8px;
-    text-decoration: none;
   }
 }
 

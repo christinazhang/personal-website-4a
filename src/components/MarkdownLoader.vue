@@ -4,7 +4,6 @@
 
 <script>
 import VueMarkdown from "vue-markdown";
-// import Intro from "../assets/work/ray-tracer/writeup/Intro.md";
 
 export default {
   props: {
@@ -16,7 +15,7 @@ export default {
     };
   },
   mounted() {
-    import("../" + this.filePath + ".md").then(
+    import("../assets/" + this.filePath + ".md").then(
       file => (this.text = file.default)
     );
   },
