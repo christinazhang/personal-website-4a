@@ -13,7 +13,7 @@
         <router-link to="/">Christina Zhang</router-link>
         <div class="nav-right">
           <router-link to="/work">Work</router-link>
-          <router-link to="/resume">Resume</router-link>
+          <router-link to="/notes">Lecture Notes</router-link>
         </div>
       </div>
     </div>

@@ -1,12 +1,33 @@
 <template>
-  <div class="home">
+  <div>
     <div class="navPositioning">
       <div class="nav">
-        <router-link to="/">Christina Zhang</router-link>
         <div class="nav-right">
           <router-link to="/work">Work</router-link>
-          <router-link to="/resume">Resume</router-link>
+          <router-link to="/notes">Lecture Notes</router-link>
         </div>
+      </div>
+    </div>
+    <div id="blurb">
+      <h1>Christina Zhang</h1>
+      <p>
+        Hi there! I’m a fourth year Computer Science + HCI student at the University of Waterloo.
+        <br />
+        <br />I dabble in a lot of things, mainly related to programming, art, and design.
+      </p>
+      <div id="contact">
+        <a href="http://github.com/christinazhang">
+          <i class="icon-github"></i>
+        </a>
+        <a href="http://linkedin.com/in/christinaszhang">
+          <i class="icon-linkedin"></i>
+        </a>
+        <a href="http://devpost.com/christinazhang">
+          <i class="icon-devpost"></i>
+        </a>
+        <a href="mailto:christina.s.zhang@euwaterloo.ca">
+          <i class="icon-mail"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -20,3 +41,42 @@ export default {
   name: "home"
 };
 </script>
+
+<style lang="scss">
+#blurb {
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 32px;
+
+  @media only screen and (min-width: 600px) {
+    /* For tablets: */
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    padding-left: 25%;
+    padding-right: 25%;
+    max-width: 475px;
+  }
+}
+
+#contact {
+  text-align: center;
+  a,
+  a:visited {
+    margin: 8px;
+    color: #333;
+    &:hover {
+      color: #888;
+    }
+
+    -o-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+  }
+}
+</style>

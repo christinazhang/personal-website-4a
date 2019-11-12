@@ -50,6 +50,7 @@ body {
       color: #42b983;
     }
     padding: 8px;
+    margin: 10px;
     text-decoration: none;
   }
 }
