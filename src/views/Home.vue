@@ -30,6 +30,9 @@
         </a>
       </div>
     </div>
+    <div id="flowers">
+      <img src="../assets/flowers.svg" />
+    </div>
   </div>
 </template>
 
@@ -42,11 +45,22 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+#flowers {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+
 #blurb {
   margin: 0 auto;
   margin-top: 100px;
   padding: 32px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 3px;
 
   @media only screen and (min-width: 600px) {
     /* For tablets: */
@@ -67,9 +81,9 @@ export default {
   a,
   a:visited {
     margin: 8px;
-    color: #333;
+    color: #333; //#8aae6b;
     &:hover {
-      color: #888;
+      color: #bed7a5;
     }
 
     -o-transition: 0.2s;

@@ -44,14 +44,24 @@ body {
     float: right;
   }
   a {
-    color: #333;
+    color: #333; //#8aae6b;
     font-weight: bold;
     &.router-link-exact-active {
-      color: #42b983;
+      color: #6c914d;
+      border-bottom: 2px solid;
     }
-    padding: 8px;
-    margin: 10px;
+    &:hover {
+      color: #bed7a5;
+    }
+    padding: 2px;
+    margin: 14px;
     text-decoration: none;
+
+    -o-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
   }
 }
 </style>
