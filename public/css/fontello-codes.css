@@ -3,3 +3,5 @@
 .icon-github:before { content: '\f09b'; } /* '' */
 .icon-mail:before { content: '\f0e0'; } /* '' */
 .icon-linkedin:before { content: '\f0e1'; } /* '' */
+.icon-angle-up:before { content: '\f106'; } /* '' */
+.icon-angle-down:before { content: '\f107'; } /* '' */

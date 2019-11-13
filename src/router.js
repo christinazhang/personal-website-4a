@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import RayTracer from "./views/RayTracer.vue";
+import Notes from "./views/Notes.vue";
 
 Vue.use(Router);
 
@@ -9,7 +10,6 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
       component: Home
     },
     // {
@@ -23,13 +23,19 @@ export default new Router({
     // },
     {
       path: "/work",
-      name: "work",
       component: () => import(/* webpackChunkName: "work" */ "./views/Work.vue")
     },
     {
       path: "/work/ray-tracer",
-      name: "ray-tracer",
       component: RayTracer
+    },
+    {
+      path: "/notes",
+      component: Notes
+    },
+    {
+      path: "/notes/:course/:lecture",
+      component: Notes
     }
   ]
 });

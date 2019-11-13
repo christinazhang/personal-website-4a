@@ -17,16 +17,16 @@
       </p>
       <div id="contact">
         <a href="http://github.com/christinazhang">
-          <i class="icon-github"></i>
+          <i class="icon-github" />
         </a>
         <a href="http://linkedin.com/in/christinaszhang">
-          <i class="icon-linkedin"></i>
+          <i class="icon-linkedin" />
         </a>
         <a href="http://devpost.com/christinazhang">
-          <i class="icon-devpost"></i>
+          <i class="icon-devpost" />
         </a>
         <a href="mailto:christina.s.zhang@euwaterloo.ca">
-          <i class="icon-mail"></i>
+          <i class="icon-mail" />
         </a>
       </div>
     </div>
@@ -37,9 +37,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "home"
 };
@@ -82,6 +79,7 @@ export default {
   a:visited {
     margin: 8px;
     color: #333; //#8aae6b;
+    text-decoration: none;
     &:hover {
       color: #bed7a5;
     }
