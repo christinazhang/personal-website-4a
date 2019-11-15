@@ -14,13 +14,23 @@ export default {
       text: ""
     };
   },
-  mounted() {
-    import("../assets/" + this.filePath + ".md").then(
-      file => (this.text = file.default)
-    );
-  },
   components: {
     "vue-markdown": VueMarkdown
+  },
+  methods: {
+    importFilePath: function() {
+      import("../assets/" + this.filePath + ".md").then(
+        file => (this.text = file.default)
+      );
+    }
+  },
+  mounted() {
+    this.importFilePath();
+  },
+  watch: {
+    filePath() {
+      this.importFilePath();
+    }
   }
 };
 </script>

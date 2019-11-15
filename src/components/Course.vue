@@ -37,7 +37,7 @@ ul {
   font-weight: 600;
   font-size: 16px;
   margin-top: 0;
-  padding-left: 18px;
+  padding-left: 30px;
 }
 li {
   padding-top: 8px;
