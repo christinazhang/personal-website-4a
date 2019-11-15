@@ -46,7 +46,7 @@ body {
   a {
     color: #333; //#8aae6b;
     font-weight: bold;
-    &.router-link-exact-active {
+    &.router-link-active {
       color: #6c914d;
       border-bottom: 2px solid;
     }

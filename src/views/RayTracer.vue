@@ -10,7 +10,7 @@
     </div>
     <div class="navPositioning">
       <div class="nav" id="nav">
-        <router-link to="/">Christina Zhang</router-link>
+        <router-link to="/" exact>Christina Zhang</router-link>
         <div class="nav-right">
           <router-link to="/work">Work</router-link>
           <router-link to="/notes">Lecture Notes</router-link>

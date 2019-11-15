@@ -2,12 +2,14 @@
   <div class="course">
     <span class="title" v-on:click="expanded = !expanded">
       {{title}}
-      <i v-if="expanded" class="icon-angle-up" />
-      <i v-if="!expanded" class="icon-angle-down" />
+      <i v-show="expanded" class="icon-angle-up" />
+      <i v-show="!expanded" class="icon-angle-down" />
     </span>
-    <transition name="fade">
-      <ul v-if="expanded">
-        <li v-for="lecture in lectures" v-bind:key="lecture">Lecture {{lecture}}</li>
+    <transition name="slide">
+      <ul v-show="expanded">
+        <li v-for="lecture in lectures" v-bind:key="lecture">
+          <router-link v-bind:to="'/notes/' + title + '/' + lecture">Lecture {{lecture}}</router-link>
+        </li>
       </ul>
     </transition>
   </div>
@@ -40,14 +42,28 @@ ul {
 li {
   padding-top: 8px;
   list-style-type: none;
+  a {
+    text-decoration: none;
+    color: #333;
+    &.router-link-exact-active {
+      color: #6c914d;
+      border-bottom: 2px solid;
+    }
+    &:hover {
+      color: #bed7a5;
+    }
+
+    transition: 0.2s;
+  }
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s;
+.slide-enter-active,
+.slide-leave-active {
+  max-height: 100vh;
+  transition: all 0.5s;
 }
-.fade-enter,
-.fade-leave-to {
+.slide-enter,
+.slide-leave-to {
+  max-height: 0;
   opacity: 0;
-  transform: translateY(-10px);
 }
 </style>
