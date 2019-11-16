@@ -1,21 +1,20 @@
 <template>
   <div id="work">
-    <div class="navPositioning">
-      <div class="nav">
-        <router-link to="/" exact>Christina Zhang</router-link>
-        <div class="nav-right">
-          <router-link to="/work">Work</router-link>
-          <router-link to="/notes">Lecture Notes</router-link>
-        </div>
-      </div>
-    </div>
+    <navBar />
     <div id="content">
       <h1>Work</h1>
       <router-link to="/work/ray-tracer">Ray Tracer</router-link>
     </div>
   </div>
 </template>
-
+<script>
+import NavBar from "../components/NavBar";
+export default {
+  components: {
+    navBar: NavBar
+  }
+};
+</script>
 <style scoped lang="scss">
 #content {
   margin: 0 auto;

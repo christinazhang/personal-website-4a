@@ -8,15 +8,7 @@
         <h3>CS488: Introduction to Computer Graphics Final Project</h3>
       </div>
     </div>
-    <div class="navPositioning">
-      <div class="nav" id="nav">
-        <router-link to="/" exact>Christina Zhang</router-link>
-        <div class="nav-right">
-          <router-link to="/work">Work</router-link>
-          <router-link to="/notes">Lecture Notes</router-link>
-        </div>
-      </div>
-    </div>
+    <navBar v-bind:white="true" />
     <div id="content">
       <markdown filePath="work/ray-tracer/writeup/1-Intro"></markdown>
       <imageGallery :imagesData="imagesData.Primitives" />
@@ -45,12 +37,14 @@
 </template>
 
 <script>
+import NavBar from "../components/NavBar";
 import MarkdownLoader from "../components/MarkdownLoader";
 import ImageGallery from "../components/ImageGallery";
 import * as ImagesData from "../assets/work/ray-tracer/writeup/ImageData";
 
 export default {
   components: {
+    navBar: NavBar,
     markdown: MarkdownLoader,
     imageGallery: ImageGallery
   },
@@ -109,12 +103,6 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-#nav {
-  a {
-    color: #fff;
-  }
 }
 
 #content {

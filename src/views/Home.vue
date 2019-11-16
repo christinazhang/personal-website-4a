@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="navPositioning">
-      <div class="nav">
-        <div class="nav-right">
-          <router-link to="/work">Work</router-link>
-          <router-link to="/notes">Lecture Notes</router-link>
-        </div>
-      </div>
-    </div>
+    <navBar v-bind:showHome="false" />
     <div id="blurb">
       <h1>Christina Zhang</h1>
       <p>
@@ -37,8 +30,12 @@
 </template>
 
 <script>
+import NavBar from "../components/NavBar";
+
 export default {
-  name: "home"
+  components: {
+    navBar: NavBar
+  }
 };
 </script>
 

@@ -1,14 +1,6 @@
 <template>
   <div id="notes">
-    <div class="navPositioning">
-      <div class="nav">
-        <router-link to="/" exact>Christina Zhang</router-link>
-        <div class="nav-right">
-          <router-link to="/work">Work</router-link>
-          <router-link to="/notes">Lecture Notes</router-link>
-        </div>
-      </div>
-    </div>
+    <navBar />
     <div id="content">
       <div id="courseList">
         <course
@@ -30,11 +22,13 @@
 <script>
 import Course from "../components/Course";
 import MarkdownLoader from "../components/MarkdownLoader";
+import NavBar from "../components/NavBar";
 
 export default {
   components: {
     markdown: MarkdownLoader,
-    course: Course
+    course: Course,
+    navBar: NavBar
   },
   data() {
     return {
@@ -103,6 +97,7 @@ export default {
 
   @media only screen and (min-width: 768px) {
     /* For desktop: */
+    margin-top: 20px;
     flex-wrap: nowrap;
     max-width: 1225px;
   }
