@@ -8,7 +8,7 @@
     <transition name="slide">
       <ul v-show="expanded">
         <li v-for="lecture in lectures" v-bind:key="lecture">
-          <router-link v-bind:to="'/notes/' + title + '/' + lecture">Lecture {{lecture}}</router-link>
+          <router-link v-bind:to="'/lecture-notes/' + title + '/' + lecture">Lecture {{lecture}}</router-link>
         </li>
       </ul>
     </transition>
@@ -28,6 +28,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../public/css/fontello.css";
+
 .title {
   font-weight: bold;
   font-size: 18px;

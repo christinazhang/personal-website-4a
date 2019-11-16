@@ -7,6 +7,7 @@ import Notes from "./views/Notes.vue";
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: "/",
@@ -30,11 +31,11 @@ export default new Router({
       component: RayTracer
     },
     {
-      path: "/notes",
+      path: "/lecture-notes",
       component: Notes
     },
     {
-      path: "/notes/:course/:lecture",
+      path: "/lecture-notes/:course/:lecture",
       component: Notes
     }
   ]

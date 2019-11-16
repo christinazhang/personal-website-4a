@@ -54,7 +54,6 @@ export default {
             15,
             16,
             17,
-            18,
             19,
             20,
             21,
@@ -127,7 +126,7 @@ export default {
 #lectureNote {
   flex: 1 1;
   max-width: 100%;
-  margin: 24px;
+  margin: 24px 0px;
 
   @media only screen and (min-width: 768px) {
     margin: 24px 0px 24px 48px;

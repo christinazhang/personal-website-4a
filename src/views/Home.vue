@@ -40,6 +40,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../public/css/fontello.css";
+
 #flowers {
   width: 100%;
   overflow: hidden;

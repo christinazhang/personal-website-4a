@@ -223,7 +223,7 @@ Difference between class and struct is default visibility:
 
 Fix the linked list class:
 
-list.h:
+`list.h:`
 
 ```c++
 class List {
@@ -237,7 +237,7 @@ class List {
 };
 ```
 
-list.cc
+`list.cc`
 
 ```c++
 #include "list.h"
@@ -372,7 +372,7 @@ We could:
 
 Sol'n:
 
-- give List privileged access to Iterator
+- give `List` privileged access to `Iterator`
 - make it a `friend`:
 
 ```c++
@@ -474,9 +474,9 @@ Then, from the command line: `make`
 
 - builds the whole project
 
-Now change just iter.cc. What happens?
+Now change just `iter.cc`. What happens?
 
-- compiles iter.cc
+- compiles `iter.cc`
 - relinks myProgram
 - compiles part of the program
 
@@ -490,7 +490,7 @@ Dependency graph:
 
 ![](http://i.markdownnotes.com/2_KSAUnJS.PNG)
 
-If iter.cc changes:
+If `iter.cc` changes:
 
 - now newer than iter.o
 - rebuild iter.o

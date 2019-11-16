@@ -6,28 +6,30 @@
 
 Recall: Maximum common subsequence
 
-(T)(A)(R)M(A)C
-CA(T)(A)MA(R)(A)N
+`(T)(A)(R)M(A)C`
+`CA(T)(A)MA(R)(A)N`
 
 More sophisticated: count # of changes
 
-For example, if you were to google "Pythagorus" - google would respond by saying, "Did you mean *Pythagoras*?"
+For example, if you were to google "Pythagorus" - google would respond by saying, "Did you mean _Pythagoras_?"
 
 Another example: recurance vs. recurrence - 2 changes
 
-This problem is known as *Edit Distance.*
+This problem is known as _Edit Distance._
 
 A change is:
-* Adding a letter
-* Deleting a letter
-* Changing one letter - cost may depend on change
-	* e.g. A to S costs 1 (they're next to each other on keyboard)
-	* A to C costs 2
+
+- Adding a letter
+- Deleting a letter
+- Changing one letter - cost may depend on change
+  _ e.g. A to S costs 1 (they're next to each other on keyboard)
+  _ A to C costs 2
 
 Application in bioinformatics:
-* Sequence alignment
-* DNA - sequence of chromosomes
-* String over A/C/T/G
+
+- Sequence alignment
+- DNA - sequence of chromosomes
+- String over A/C/T/G
 
 Also good for finding patterns in music!
 
@@ -38,16 +40,18 @@ Subproblems for $x_1, ..., x_i$, $y_1, ..., y_j$
 Let $M(i, j)$ = min # of changes
 
 Our choices are:
-* Match $x_i$ to $y_j$
-* Delete $x_i$
-* Add $y_j$
 
-$M(i,j)$ = (*) $\min \begin{cases} M(i-1, j-1) \text{ if } x_i = y_j \\ r + M(i-1, j-1) \text{ if } x_i \neq y_j \\ d+M(i-1, j) \\ a+M(i, j-1) \end{cases}$
+- Match $x_i$ to $y_j$
+- Delete $x_i$
+- Add $y_j$
+
+$M(i,j)$ = (\*) $\min \begin{cases} M(i-1, j-1) \text{ if } x_i = y_j \\ r + M(i-1, j-1) \text{ if } x_i \neq y_j \\ d+M(i-1, j) \\ a+M(i, j-1) \end{cases}$
 
 where:
-* r = replacement cost
-* d = deletion cost
-* a = addition cost
+
+- r = replacement cost
+- d = deletion cost
+- a = addition cost
 
 The simplest: r = d = a = 1
 
@@ -73,7 +77,7 @@ Go diagonally
 
 Array M[0 ... m, 0 ... n]
 
-```
+```none
 for i = 0 ... m M(i, 0) = i * d
 for j = 0 ... n M(0, j) = j * a
 for i = 1 ... m
@@ -99,7 +103,7 @@ Subproblems: $C(v), v = 1 ... V$ Where C(v) is the minimum number of coins for v
 
 $C(v) = \min_{i = 1, ..., k} \{1 + C(v - c_i)\}$
 
-```
+```none
 C(0) = 0
 for v = 1 ... V
 	C(v) <- infinity
@@ -108,13 +112,14 @@ for v = 1 ... V
 			then C(v) <- 1 + (v-C_i)
 	end
 ```
+
 Note: $C(v) = \infty$ if and only if we cannot make change for v.
 
 Run time: $O(v \cdot k)$.
 
 An algorithm runs in **polynomial time** if run time is $O(n^c)$, c a constant, for input size in.
 
-Our previous algorithm is *not* polynomial time, because the size of V is $\log V$ = # bits in V. But run time depends on V, nog $\log V.$
+Our previous algorithm is _not_ polynomial time, because the size of V is $\log V$ = # bits in V. But run time depends on V, nog $\log V.$
 
 The above algorithm is **pseudo-polynomial** time.
 
@@ -148,13 +153,13 @@ Subproblems - build optimal tree for items i, i+1, ..., j. So $O(n^2)$ subproble
 
 $M(i, j)$ = minimum search cost for binary search tree on items i ... j
 
-$M(i, j) = \min_{k = i, ..., j} \{M(i, k) + M(k+1, j)\} + \sum_{t=i}^{j} pt, because every node is 1 deeper.
+\$M(i, j) = \min*{k = i, ..., j} \{M(i, k) + M(k+1, j)\} + \sum*{t=i}^{j} pt, because every node is 1 deeper.
 
 $P(i) = \sum_{t=1}^{i} p_i$
 
 $\sum_{t=i}^{j} = P(j) = P(i-1)$
 
-```
+```none
 for i = 1, ..., n M(i,i) = p_i
 for r = 1, ..., n - 1
   for i = 1 ... n - r //find M(i, i+r)

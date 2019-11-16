@@ -8,14 +8,15 @@ October 19, 2017
 
 **DFS Tree:**
 
-![](https://i.imgur.com/I8mQn4P.png) Order of discovery: a, b, e, f, g, d, c 
+![](https://i.imgur.com/I8mQn4P.png) Order of discovery: a, b, e, f, g, d, c
 
 We implement DFS using an (implicit) stack.
 
 **Algorithm:**
 
 **DFS(v)** (Like Explore from BFS)
-```
+
+```none
 mark(v) <- discovered
 for each neighbour u of v
   if u is undiscovered
@@ -24,7 +25,8 @@ end
 ```
 
 **DFS**
-```
+
+```none
 mark all vertices undiscovered
 for all vertices v (handles multiple connected components)
   if v undiscovered
@@ -35,7 +37,7 @@ for all vertices v (handles multiple connected components)
 
 ### Enhance the code to find tree and tree edges.
 
-```
+```none
 mark(v) <- discovered
 for each neighbour u of v
   if u is undiscovered
@@ -47,7 +49,8 @@ mark(v) <- finished
 ```
 
 **DFS**
-```
+
+```none
 mark all vertices undiscovered
 for all vertices v (handles multiple connected components)
   if v undiscovered
@@ -56,27 +59,28 @@ for all vertices v (handles multiple connected components)
 ```
 
 ![](https://i.imgur.com/I8mQn4P.png) Order of finishing: f, g, e, c, d, b, a
- 
+
 **Run Time:** $O(n + \sum \deg(v)) = O(n+m)$
 
 **Lemma:** DFS from root note $v_0$ discovers all vertices connected to $v_0$.
 
 **Proof:** Let path = $v_o, v_1, ... v_f$.
 
-Look at first vertex on the path that is *not* discovered, $v_i, i > 0$.
+Look at first vertex on the path that is _not_ discovered, $v_i, i > 0$.
 
 Look at $v_{i-1}$ - it is discovered. If we look at all neighbours of $v_{i-1}$, all will be discovered when $v_{i-1}$ is finished.
 
 **Lemma:** All non-tree edges go from ancestor to descendant.
 
-![](https://i.imgur.com/3kJGoCa.png) u is *ancestor* of v, v is a *descendant* of u.
+![](https://i.imgur.com/3kJGoCa.png) u is _ancestor_ of v, v is a _descendant_ of u.
 
 no edge(x, y): Suppose x is discovered before y. The DFS(x) will discover y before finishing x. So y will be in the subtree (a descendant) of x.
 
 ### Enhancing DFS to find discover & finish times:
 
 **DFS(v)**
-```
+
+```none
 mark(v)<-discovered
 discover(v)<- time, time <- time + 1
 for each neighbour u of v:
@@ -93,13 +97,13 @@ $d(\cdot)$ and $f(\cdot)$ form a parenthesis system:
 Suppose $d(v) < d(u)$:
 ![](https://i.imgur.com/tfN6xBo.png)
 
-We will never have 
+We will never have
 ![](https://i.imgur.com/EZ9SeDB.png)
 Because $[d(v), f(v)]$ is the time when v is on a stack.
 
 ### DFS to find 2-connected components of G
 
-Vertex v is a *cut vertex* if removing v disconnects G. 
+Vertex v is a _cut vertex_ if removing v disconnects G.
 
 ![](https://i.imgur.com/hVt8XFt.png) b and e are cut vertices.
 
@@ -124,10 +128,10 @@ We can compute $low$ recursively.
 $low(u) = \min \begin{cases} \min \{d(w): (u, w) \in E\} \\ min\{low(x): x \text{ is child of } u\} \end{cases}$
 
 **Final Algorithm to find cut vertices:**
-* Enhance DFS to compute low (exercise)
-* OR:
-	* Run DFS
-	* for every vertex v in fished order, compute low recursively as mentioned above
-	* for every v
-		* if v has child with $low(v) \geq d(v)$
-			* then v is a cut node
+
+- Enhance DFS to compute low (exercise)
+- OR:
+  _ Run DFS
+  _ for every vertex v in fished order, compute low recursively as mentioned above
+  _ for every v
+  _ if v has child with $low(v) \geq d(v)$ \* then v is a cut node

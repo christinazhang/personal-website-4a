@@ -1,25 +1,26 @@
 # Lecture 6
+
 September 26, 2017
 
 ## Greedy Algorithms
 
 ### Making Change
 
-Say we want to make change for $3.47. (Pennies still exist in this example) We would use:
-*  1 x $2
-*  1 x $1
-*  1 x 25 cents
-*  2 x 10 cents
-*  2 x 1 cent
+Say we want to make change for \$3.47. (Pennies still exist in this example) We would use:
 
-This is an example of the greedy algorithm - where we use as many of the biggest denomination we can, and work down from there. This results in *7 coins*. Can we use fewer than 7 coins?
+- 1 x \$2
+- 1 x \$1
+- 1 x 25 cents
+- 2 x 10 cents
+- 2 x 1 cent
+
+This is an example of the greedy algorithm - where we use as many of the biggest denomination we can, and work down from there. This results in _7 coins_. Can we use fewer than 7 coins?
 
 With the Canadian/US Coin system, the greedy algorithm will always result in the minimum amount of coins. Proof is left as a (very difficult) exercise.
 
 What about other coin systems? Consider a world where there are only 1, 3, and 4 cent coins. If we wanted to make change for 6 cents, the greedy algorithm would do 1 x 4 cents and 2 x 1 cent, which is 3 coins.
 
 The optimal solution, however, would be to use 2 x 3 cent coins.
-
 
 ### Interval Scheduling
 
@@ -30,15 +31,13 @@ Given a set of activities, each with start, end times, select maximum subset, su
 The maximum we can choose here is 3.
 
 **Greedy approaches to this problem**
-* Pick shortest activity first
-	* Counterexample: ![](https://i.imgur.com/5WwiRVs.png)
-	* The above is not optimal.
-* Sort by start time
-	* Counterexample: The bike trip in the first image would be chosen first.
-* Sort by end time
-	* This works on our example - we'll prove that this gives the maximum number of activities.
-* Pick the interval with fewest conflicts
-	* Counterexample: ![](https://i.imgur.com/Oh3wQQP.png)
+
+- Pick shortest activity first
+  _ Counterexample: ![](https://i.imgur.com/5WwiRVs.png)
+  _ The above is not optimal.
+- Sort by start time \* Counterexample: The bike trip in the first image would be chosen first.
+- Sort by end time \* This works on our example - we'll prove that this gives the maximum number of activities.
+- Pick the interval with fewest conflicts \* Counterexample: ![](https://i.imgur.com/Oh3wQQP.png)
 
 **Proof that sorting by end time works:**
 
@@ -46,15 +45,15 @@ Let $A = \{a_1, a_2, ... a_k\}$ be the solution we get from greedy, sorted by en
 
 A's are always "ahead" or better.
 
-*Claim:* $\forall i a_1,  ..., a_i, b_{i+1}, ..., b_l$ is a solution by induction on $i$.
+_Claim:_ $\forall i a_1,  ..., a_i, b_{i+1}, ..., b_l$ is a solution by induction on $i$.
 
-*Basis: *$i = 1$ $a_1, b_2, b_3, ... b_l$ is a solution.
+_Basis: _$i = 1$ $a_1, b_2, b_3, ... b_l$ is a solution.
 
 ![](https://i.imgur.com/Hs4eSzW.png)
 
 $a_1$ ends $\leq$ b_1 ends, so $a_1, b_2, b_3, ... b_l$ is a solution.
 
-*General Case:*
+_General Case:_
 Suppose $a_i,...,a{i-1},b{i},...$ is a solution.
 
 ![](https://i.imgur.com/NxXVvxZ.png)
@@ -72,7 +71,8 @@ Assume $k < l$, then swapping gives $a_1, ... a_k, b_{k+1}, ... b_l$ so greedy c
 Sort activities $a_1, ..., a_n$
 
 $A \leftarrow \phi$
-```
+
+```none
 for i = 1 ... n
 	if a_1 does not overlap with any activities in A (only check the last one)
 	then A <- A U {a_i}
@@ -84,11 +84,11 @@ $\Theta(n \log n) \text{ (sort) } + \Theta(n) \text{ (for loop)} = \Theta(n \log
 
 Imagine we have some assignments:
 
-| Assignments       | Time required         | Due  |
-| ------------- |-------------| -----|
-| CS341      | 4 hours | in 9 hours |
-| Philosophy | 3 hours |  in 14 hours |
-| CS350      | 10 hours  |  in 25 hours |
+| Assignments | Time required | Due         |
+| ----------- | ------------- | ----------- |
+| CS341       | 4 hours       | in 9 hours  |
+| Philosophy  | 3 hours       | in 14 hours |
+| CS350       | 10 hours      | in 25 hours |
 
 We will not be taking sleep or eating into account for this example :'( Can you do everything by its deadline?
 
@@ -101,8 +101,9 @@ For given ordering of jobs, $l(i)$ = lateness of job i
 Objective: min max $\{l(i)\}$
 
 Possibilities:
-* Swapping jobs
-* Do all jobs in order by earliest deadline
+
+- Swapping jobs
+- Do all jobs in order by earliest deadline
 
 Claim: Doing jobs in order by earliest deadline is the best solution. How do we prove this? Some advice: always start small. Let's first look at 2 jobs.
 

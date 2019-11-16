@@ -6,7 +6,7 @@
       </div>
       <div class="nav-right">
         <router-link to="/work">Work</router-link>
-        <router-link to="/notes">Lecture Notes</router-link>
+        <router-link to="/lecture-notes">Lecture Notes</router-link>
       </div>
     </div>
   </div>

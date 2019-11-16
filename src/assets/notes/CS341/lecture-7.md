@@ -5,12 +5,13 @@ September 28, 2017
 Today we are going over two greedy algorithms
 
 ## Huffman codes
+
 (might be remembered from CS240!)
 
-* Given some symbols (e.g. a, b, ..., z) and frequency f() that each letter appears
-* We want to encode in binary such that
-	* Can decode - use prefix code
-	* Codes are small (given frequencies)
+- Given some symbols (e.g. a, b, ..., z) and frequency f() that each letter appears
+- We want to encode in binary such that
+  _ Can decode - use prefix code
+  _ Codes are small (given frequencies)
 
 Ex:
 ||Frequency|Code|
@@ -27,9 +28,10 @@ To decode 0101110 = 0 | 10 | 111 | 0 = ACDA
 Average code length = .45 + .1(3) + .25(2) + .2(3) = $\sum f(z)$ (the internal nodes z) = .3 + .55 + 1.0
 
 Huffman's greedy algorithm:
-* take x, y to be the 2 least frequent letters
-* construct ![](https://i.imgur.com/LOVPSLl.png) f(z) <- f(x) + f(y)
-* remove x, y, add z. Repeat.
+
+- take x, y to be the 2 least frequent letters
+- construct ![](https://i.imgur.com/LOVPSLl.png) f(z) <- f(x) + f(y)
+- remove x, y, add z. Repeat.
 
 Idea of proof that this gives the best code = min. average/expected length - Exchange proof:
 
@@ -41,35 +43,36 @@ Average code length goes down (or stays the same), so greedy has minimum average
 
 ![](https://i.imgur.com/jc1PKiY.png)
 
-* Get sequence of request for blocks
-* When we get a request for a block that's not in cache, remove a block from the cache
+- Get sequence of request for blocks
+- When we get a request for a block that's not in cache, remove a block from the cache
 
 Goal: minimize # accesses to slow memory.
 
 Example: Request 1, 2, 3, 1; k = 2
 
-| Request | Cache |Cost|
-|---|---|--|
-| 1 | 1|1|
-|2| 1, 2|1|
-|3|1, 3|1|
-|1|1, 3| 0|
+| Request | Cache | Cost |
+| ------- | ----- | ---- |
+| 1       | 1     | 1    |
+| 2       | 1, 2  | 1    |
+| 3       | 1, 3  | 1    |
+| 1       | 1, 3  | 0    |
 
 This requires prior foresight. This has less cost, versus
 
-| Request | Cache |Cost|
-|---|---|--|
-| 1 | 1|1|
-|2| 1, 2|1|
-|3|3, 2|1|
-|1|3, 1| 1|
+| Request | Cache | Cost |
+| ------- | ----- | ---- |
+| 1       | 1     | 1    |
+| 2       | 1, 2  | 1    |
+| 3       | 3, 2  | 1    |
+| 1       | 3, 1  | 1    |
 
-This is what is known as an *online* problem.
+This is what is known as an _online_ problem.
 
 We heuristics such as:
-* LRU (Least recently used) - The best one!
-* LFU (Least frequently used)
-* FIFO (First in first out)
+
+- LRU (Least recently used) - The best one!
+- LFU (Least frequently used)
+- FIFO (First in first out)
 
 **LRU is best in practice**
 
@@ -90,16 +93,17 @@ Pack your knapsack to maximize value, keeping within a weight limit. Items 1, 2,
 $\sum_{i \in S} w_i \leq W \max \sum_{i \in S} v_i$
 
 There are two versions of this problem:
-* 0-1 Knapsack, where the items are indivisible (like a tent or flashlight)
-* Fractional knapsack, where we can use fractions of an item (flour, cheese)
+
+- 0-1 Knapsack, where the items are indivisible (like a tent or flashlight)
+- Fractional knapsack, where we can use fractions of an item (flour, cheese)
 
 Ex. W = 6
 
-| i | v_i | \frac{v_i}{w_i}|
-|---|---|--|
-| 1 | 12 | 3|
-| 2 | 7  | 2\frac{1}[3}|
-| 3 | 6  | 2|
+| i   | v_i | \frac{v_i}{w_i} |
+| --- | --- | --------------- |
+| 1   | 12  | 3               |
+| 2   | 7   | 2\frac{1}[3}    |
+| 3   | 6   | 2               |
 
 For 0-1 case, greedy algorithm picks item 1, and no others. Value = 12. But a better solution is items 2 and 3, which gives value 13.
 
@@ -111,7 +115,7 @@ $x_i$ - weight of item i to take
 
 free-w - W
 
-```
+```none
 for i = 1 ... n (items ordered by v_i/w_i, max to min)
   x_i <- min{w-i, free-w}
   free-W <- free-W - x_i
@@ -120,11 +124,10 @@ end
 
 Note: solution will look like
 
-|||||||||
-|---|---|---|---|---|---|---|---|
-| item | 1 |2| ... | j-1| j| j+1| j+2 |
-|$x_i$| $x_1 = w_1$ | $x_2 = w_2$ | ... | $x_{j-1}$ | $x_j$ (which is a fraction of item j) | 0 | 0 |
-
+|       |             |             |     |           |                                       |     |     |
+| ----- | ----------- | ----------- | --- | --------- | ------------------------------------- | --- | --- |
+| item  | 1           | 2           | ... | j-1       | j                                     | j+1 | j+2 |
+| $x_i$ | $x_1 = w_1$ | $x_2 = w_2$ | ... | $x_{j-1}$ | $x_j$ (which is a fraction of item j) | 0   | 0   |
 
 Final weight: $\sum x_i = W$ so long as $\sum_{all i} w_i \geq W$
 

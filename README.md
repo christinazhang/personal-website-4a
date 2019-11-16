@@ -1,5 +1,10 @@
 # Personal Website 4A
 
+## TODOs
+
+- "Work" page
+- Replace images hosted by imgur/markdownnotes
+
 ## Project setup
 
 ```

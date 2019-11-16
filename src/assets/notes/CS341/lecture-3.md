@@ -1,15 +1,19 @@
 # Lecture 3
+
 September 14, 2017
 
 ## Algorithmic Paradigms
+
 We will be covering the paradigms in this order: (This goes up until the midterm!)
+
 1. Reductions
 2. Divide-and-conquer
 3. Greedy
 4. Dynamic Programming
 
 ## Reductions
-* Use known algorithms to solve new problems
+
+- Use known algorithms to solve new problems
 
 **Example:** 2-sum and 3-sum
 
@@ -23,7 +27,7 @@ e.g. [1, 3, 9, 12] m = 10 is possible, m = 8 is not.
 
 **Algo 1:**
 
-```
+```none
 for i = 1 ... n
   for j = i ... n
     if A[i] + A[j] = m SUCCESS
@@ -35,7 +39,7 @@ $\Theta(n^2)$ is worst case running time
 
 **Algo 2:** Sort $A$
 
-```
+```none
 for each i = 1 ... n, do a binary search for m-A[i]
 ```
 
@@ -47,7 +51,7 @@ Sorted array
 
 ![](https://i.imgur.com/tAH73Gq.png)
 
-```
+```none
 i <- 1, j <- n
 
 while i <= j
@@ -63,9 +67,10 @@ FAIL
 
 Proof is left as an exercise. Correctness Invariant: if there is a solution $i^*, j^*$ then $i^* \geq i, j^* \leq j$
 
-Worst case run time:  $\Theta(n)$
+Worst case run time: $\Theta(n)$
 
 ### 3-sum
+
 (there are 'applications')
 
 Given array $A[1, ..., n]$ of numbers, target $m$, find $i, j, k$ such that $A[i] + A[j] + A[k] = m$
@@ -74,7 +79,7 @@ First: m = 0
 
 Want $A[i] + A[j] + A[k]$ = 0. Try each $k = 1...n$.
 
-* - Use 2-sum algorithm to find i, j such that $A[i] + A[j] = -A[k]$.
+- - Use 2-sum algorithm to find i, j such that $A[i] + A[j] = -A[k]$.
 
 Takes $\Theta(n^2 \log n)$
 
@@ -86,23 +91,20 @@ Are there algorithms better than $\Theta(n^2)$ for 3-sum? Only recently in 2014 
 
 ## Divide and Conquer
 
-* Divide - break the problem up
-* Recurse - solve subproblems
-* Conquer - put solutions together
+- Divide - break the problem up
+- Recurse - solve subproblems
+- Conquer - put solutions together
 
-* Binary search: 1 subproblem, 1 step
-  * $T(n) = T(\frac{n}{2}) + 1$
-* Mergesort: $T(n) = 2T(\frac{n}{2}
-* 
-* 
-* 
-* 
-*  + c \cdot n)$
+- Binary search: 1 subproblem, 1 step
+  - $T(n) = T(\frac{n}{2}) + 1$
+- Mergesort: $T(n) = 2T(\frac{n}{2}c \cdot n)$
 
 ### Solving recurrence relations
+
 2 basic approaches
-* Recursion tree method
-* Guess solution and prove by induction
+
+- Recursion tree method
+- Guess solution and prove by induction
 
 Recursion tree method: for mergesort recurrence:
 
@@ -121,7 +123,6 @@ $T(n) = T(\lfloor \frac{n}{2} \rfloor) + T(\lceil \frac{n}{2} \rceil) + n -1$
 Solution:
 
 $T(n) = n\lceil log n \rceil - 2^{\lceil \log n \rceil} + 1$ but this is not trivial.
-
 
 In this course, we only want rate of growth.
 
@@ -142,11 +143,11 @@ $c \cdot n \log n = 2c$ So $T(n) \leq c n \log n$ when n = 2 for $4c > \frac{1}{
 
 **Inductive Hypothesis:**
 
-Assume  $T(n) \leq c \cdot n \log n$ for $n' < n$. Prove for $n$.
+Assume $T(n) \leq c \cdot n \log n$ for $n' < n$. Prove for $n$.
 
 **Inductive Step:**
 
-*Case 1:* $n$ is even
+_Case 1:_ $n$ is even
 
 $T(n) = 2T(\frac{n}{2}) + n-1$
 
@@ -158,7 +159,7 @@ $= c \cdot n \log n - cn + n -1$
 
 $\leq c \cdot n \log n$ if $c > 1$
 
-*Case 2:* $n$ is odd
+_Case 2:_ $n$ is odd
 
 $T(n) = T(\frac{n-1}{2}) + T(\frac{n+1}{2}) + n - 1$
 
@@ -177,6 +178,7 @@ $T(n) = 2T(\frac{n}{2}) + n \leq 2c\frac{n}{2} + n = (c + 1)n$
 So $T(n) \in O(n)$?! Not really. c is a growing constant.
 
 ## More Techniques
+
 **Example**
 
 $T(n) = T(\lfloor \frac{n}{2} \rfloor) + T(\lceil \frac{n}{2} \rceil) +1$
