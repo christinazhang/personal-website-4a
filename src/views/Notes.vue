@@ -130,7 +130,8 @@ export default {
 }
 
 #lectureNote {
-  flex: 1 auto;
+  flex: 1 1;
+  max-width: 100%;
   margin: 24px;
 
   @media only screen and (min-width: 768px) {

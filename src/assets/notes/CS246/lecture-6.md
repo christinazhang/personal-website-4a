@@ -1,5 +1,7 @@
 # Lecture 6
+
 ## Arrays of Objects
+
 ```c++
 struct vec {
     int x, y;
@@ -9,11 +11,14 @@ struct vec {
 Vec *vp = new Vec[10]
 Vec moreVecs[10];
 ```
+
 This is not allowed... Why?
-* Can't initialize array items - no default ctor
-* They want to call the default ctor on each item
+
+- Can't initialize array items - no default ctor
+- They want to call the default ctor on each item
 
 Options:
+
 1. Provide a default ctor
 2. For stack arrays: `Vec moreVecs[3] = {{0,0}, {1,3}, {2,4}};`
 3. For heap arrays: -array of ptrs:
@@ -45,6 +50,7 @@ Can we call methods on a const object?
 **Answer:** Yes, we can call methods that promise not to modify any fields
 
 e.g.
+
 ```c++
 struct Student{
 	...
@@ -55,8 +61,8 @@ struct Student{
 Compiler checks that const methods don't modify fields
 Only const methods can be called on const objects
 
-
 Now consider: want to collect usage statistics on student objects
+
 ```c++
 struct Student {
 	...
@@ -68,8 +74,8 @@ struct Student {
 };
 ```
 
-* Now we can't call grade on const objects
-* But mutating numMethodCalls affects only the PHYSICAL constness of Student objs, not the LOGICAL constness.
+- Now we can't call grade on const objects
+- But mutating numMethodCalls affects only the PHYSICAL constness of Student objs, not the LOGICAL constness.
 
 We want to be able to update numMethodCalls, even if the object is const - so we declare the field mutable
 
@@ -89,12 +95,14 @@ Mutable fields can be changed, even if the object is `const`
 ## Static Fields & Methods
 
 `numMethodCalls` tracked the # of times a method was called on a PARTICULAR object. What if we want to track # of times a method is called...
-* over all Student objects?
-* track how many Students are created?
+
+- over all Student objects?
+- track how many Students are created?
 
 Static members - associated with the class itself, not with any specific instance (object)
 
 **STEP 1:** .h file
+
 ```c++
 struct Student {
     ...
@@ -106,16 +114,19 @@ struct Student {
 ```
 
 **STEP 2**: .cc file:
+
 ```c++
 int Student::numInstances = 0;
 ```
+
 static fields must be defined external to the class.
 
 static member fns:
-* don't depend on the specific instance
-* can only access static fields
 
-```c++                  
+- don't depend on the specific instance
+- can only access static fields
+
+```c++
 struct Student {
     ...
     static int numInstances;
@@ -131,7 +142,9 @@ Student::printNumInstances(); //2
 ```
 
 ## Invariants + Encapsulation
+
 Consider:
+
 ```c++
 struct Node {
 	int data;
@@ -160,18 +173,21 @@ But we can't guarantee this invariant - can't trust the user to use `Node` prope
 Right now we can't enforce any invariants, because the user can interfere with our data
 
 e.g. a stack Invariant
-* last item pushed is the first item popped
-* but not if the client can rearrange the underlying data
+
+- last item pushed is the first item popped
+- but not if the client can rearrange the underlying data
 
 It's hard to reason about programs if we can't rely on invariants.
 
 To enforce invariants: introduce **encapsulation**!
-* want clients to treat objects as black boxes - capsules
-* implementation details are sealed away
-* can only interact via provided methods
-* creates an abstraction, regains control over objs
+
+- want clients to treat objects as black boxes - capsules
+- implementation details are sealed away
+- can only interact via provided methods
+- creates an abstraction, regains control over objs
 
 e.g.
+
 ```c++
 struct Vec {
 	Vec(int x, int y); // also public
@@ -182,6 +198,7 @@ struct Vec {
     ...
 };
 ```
+
 Default visibility in `structs`: public
 
 In general: want fields to be private; only methods should be public.
@@ -189,6 +206,7 @@ In general: want fields to be private; only methods should be public.
 So it's better to have default visibility = private.
 
 Solution: switch from `struct` to `class`.
+
 ```c++
 class Vec {
         int x, y;
@@ -199,12 +217,14 @@ class Vec {
 ```
 
 Difference between class and struct is default visibility:
-* `struct`: public
-* `class` private
+
+- `struct`: public
+- `class` private
 
 Fix the linked list class:
 
 list.h:
+
 ```c++
 class List {
 	struct Node; // private Nested class, only accessible within class List
@@ -218,6 +238,7 @@ class List {
 ```
 
 list.cc
+
 ```c++
 #include "list.h"
 
@@ -246,22 +267,23 @@ Only `List` can create/manipulate `Node` objects.
 We can now guarantee the invariant that next is always either `nullptr` or allocated by `new`
 
 But:
-* Now we can't traverse the list from Node to Node as we would a linked list.
-* Repeatedly calling ith to access the whole list: $O(n^2)$ time.
-	* But we can't expose the nodes or we lose encapsulation
+
+- Now we can't traverse the list from Node to Node as we would a linked list.
+- Repeatedly calling ith to access the whole list: $O(n^2)$ time. \* But we can't expose the nodes or we lose encapsulation
 
 ## SE Topic: Design Patterns
 
-* Certain programming problems arise frequently
-* Keep track of good solutions to these problems, use them in similar situations
+- Certain programming problems arise frequently
+- Keep track of good solutions to these problems, use them in similar situations
 
-**Design Pattern:** If you have *this* situation, *this* technique might solve it.
+**Design Pattern:** If you have _this_ situation, _this_ technique might solve it.
 
 Sol'n: Iterator Pattern
 
 Create a class that manages access to nodes
-* abstraction of a pointer
-* walk the list without exposing the actual ptrs
+
+- abstraction of a pointer
+- walk the list without exposing the actual ptrs
 
 ```c++
 class List {
@@ -283,7 +305,7 @@ class List {
 	Iterator begin() {return Iterator{theList};}
 	Iterator end() {return Iterator{nullptr};}
 	...
-};   
+};
 ```
 
 Client:
@@ -301,6 +323,7 @@ int main() {
 ```
 
 **Shortcut:** automatic type deduction:
+
 ```c++
 auto x = y;` // automatically gives x the same type as y
 
@@ -310,22 +333,27 @@ for (auto it=l.begin(); it!=l.end(); ++it) {
 ```
 
 **Shortercut:** range based forloop:
+
 ```c++
 for (auto n : l){
 	cout << n << endl;
 }
-```    
+```
+
 Available for any class with:
-* methods `begin()` and `end()` that produce iterators
-* iterator must support `!=`, unary `*`, prefix `++`
-* `n` is a copy of the list item
+
+- methods `begin()` and `end()` that produce iterators
+- iterator must support `!=`, unary `*`, prefix `++`
+- `n` is a copy of the list item
 
 If you want to modify the list elements (or save copying)
+
 ```c++
 for (auto &n : l) {
     ++n;
 }
 ```
+
 We will see iterators again later.
 
 ## Encapsulation Continued
@@ -337,13 +365,15 @@ List client can create iterators directly:
 This violates encapsulation: - client should be using `begin()`/`end()`
 
 We could:
-* make `Iterator`'s ctor private
-	* then the client can't call `List::Iterator{...};`
-    	* but then neither can `List`
+
+- make `Iterator`'s ctor private
+  _ then the client can't call `List::Iterator{...};`
+  _ but then neither can `List`
 
 Sol'n:
-* give List privileged access to Iterator
-* make it a `friend`:
+
+- give List privileged access to Iterator
+- make it a `friend`:
 
 ```c++
 class List {
@@ -357,22 +387,23 @@ class List {
 		friend class List; // List has access to all members of Iterator (you
 						   // only allow friends access to your private parts ;) )
 	};
- 	...   
+ 	...
 };
 ```
 
 Now list can still create iterators, but client can only create Iterators by calling the begin/end.
 
 ### Programming/Life advice with Brad
-* You want as little friends as possible.
-* Friends are not a good thing.
-* If you want to make a friend, be sure that you want to do that.
-* You only want to make friends with people who can do things for you.
-* Give your classes as few friends as possible - weakens encapsulation.
-* Once again - keep your fields private.
 
+- You want as little friends as possible.
+- Friends are not a good thing.
+- If you want to make a friend, be sure that you want to do that.
+- You only want to make friends with people who can do things for you.
+- Give your classes as few friends as possible - weakens encapsulation.
+- Once again - keep your fields private.
 
 What if you want to give access to fields? Use accessor methods and mutator methods:
+
 ```c++
 class Vec {
 	int x, y;
@@ -381,10 +412,12 @@ class Vec {
 	int getX() const{return x;} <- accessor method
 	void setY(int newY) {y = newY} <- mutator method
 };
-```        
+```
+
 What about `operator<<`? -needs x and y, but can't be a member
-* if `getX`, `getY` are defined, OK
-* if not, make `operator<<` a `friend`function!
+
+- if `getX`, `getY` are defined, OK
+- if not, make `operator<<` a `friend`function!
 
 ```c++
 class Vec{
@@ -394,7 +427,9 @@ class Vec{
     friend std::ostream &operator<< (std::ostream &out, const Vec &v);
 };
 ```
+
 .cc:
+
 ```c++
 ostream &operator<<(ostream &out, const Vec &v) {
     return out << v.x << ' ' << v.y;
@@ -402,7 +437,9 @@ ostream &operator<<(ostream &out, const Vec &v) {
 ```
 
 ## Tools Topic: make
+
 Seprate compilation:
+
 ```bash
 g++14 -c list.cc
 g++14 -c node.cc
@@ -434,32 +471,36 @@ myProgram: main.o list.o node.o iter.o # myProgram depends on these
 ```
 
 Then, from the command line: `make`
-* builds the whole project
+
+- builds the whole project
 
 Now change just iter.cc. What happens?
 
-* compiles iter.cc
-* relinks myProgram
-* compiles part of the program
+- compiles iter.cc
+- relinks myProgram
+- compiles part of the program
 
 Command `make`: builds the first target (`myProgram`) in the Makefile
-* What does `myProgram` depend on? `list.o`, `iter.o`, ...
-	* recursively build these, if necessary
-		* rebuild myProgram, if necessary.
+
+- What does `myProgram` depend on? `list.o`, `iter.o`, ...
+  _ recursively build these, if necessary
+  _ rebuild myProgram, if necessary.
 
 Dependency graph:
 
 ![](http://i.markdownnotes.com/2_KSAUnJS.PNG)
 
 If iter.cc changes:
-* now newer than iter.o
-* rebuild iter.o
-* now iter.o newer than myProgram
-* rebuild myProgram
+
+- now newer than iter.o
+- rebuild iter.o
+- now iter.o newer than myProgram
+- rebuild myProgram
 
 Can rebuild specific targets: `make node.o`
 
 Common practice: put a target `clean:` at the bottom of the Makefile to remove all binaries
+
 ```bash
 ... # Rest of the Makefile
 .PHONY: clean
@@ -468,6 +509,7 @@ clean:
 ```
 
 To do a full rebuild:
+
 ```bash
 make clean
 make
