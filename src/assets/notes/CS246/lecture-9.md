@@ -2,8 +2,7 @@
 
 ## Observer Pattern (ct'd from Lecture 8)
 
-![](http://i.markdownnotes.com/2_g2dRaMe.PNG)
-
+![](/images/lectures/CS246/8-3.png)
 
 ```c++
 class Observer {
@@ -36,9 +35,9 @@ public:
 		}
 	};
 
-```		
+```
 
-**main.cc:**
+**`main.cc:`**
 
 ```c++
 HorseRace hr;
@@ -57,21 +56,23 @@ Want to enhance an object at runtime - add functionality/features
 
 **e.g.** Windowing system
 
-* Start with a basic window
-* Add a scrollbar (when text gets too long)
-* Add a menu (when your cursor gets to the top)
+- Start with a basic window
+- Add a scrollbar (when text gets too long)
+- Add a menu (when your cursor gets to the top)
 
 Want to choose enhancements at runtime.
 
-![](http://i.markdownnotes.com/2_MIsG1co.PNG)
+![](/images/lectures/CS246/9-1.png)
 
 Class Component:
-* defines the interface
-* operations your objects will provide
+
+- defines the interface
+- operations your objects will provide
 
 ConcreteComponent:
-* implements the interface
-* inherits from Component
+
+- implements the interface
+- inherits from Component
 
 Every decorator **is a** component AND every decorator **has a** component.
 **e.g.** Window with Scrollbar is a kind of Window, and HAS a ptr to the underlying plain Window
@@ -82,7 +83,7 @@ All inherit from AbstractWindow, so window methods can be used polymorphically o
 
 **e.g. Pizza**
 
-![](http://i.markdownnotes.com/2_5EgG2Hk.PNG)
+![](/images/lectures/CS246/9-2.png)
 
 A basic `Pizza` is crust and sauce.
 
@@ -104,7 +105,7 @@ public:
 
 Turns out nobody likes just sauce and bread! Let's add enhancements.
 
-![](http://i.markdownnotes.com/2_Fq7OUbd.PNG)
+![](/images/lectures/CS246/9-3.png)
 
 ```c++
 class Decorator: public Pizza {
@@ -131,6 +132,7 @@ public:
 ```
 
 **Use:**
+
 ```c++
 Pizza *p1 = new CrustAndSauce;
 p1 = new Topping("Cheese", p1);
@@ -143,7 +145,6 @@ delete p1;
 ```
 
 ## Inheritance and Copy/Move
-
 
 ```c++
 class Book {
@@ -163,12 +164,13 @@ Text t2 = t; // No copy ctor in Text
 			 // - same for other ops
 ```
 
-
 To write your own operations:
+
 ```c++
 // Copy ctor
 Text::Text(const Text &other):Book{Other},topic{other.topic}{};
 ```
+
 ```c++
 // Copy assignment operator
 Text & Text::operator=(const Text &other) {
@@ -177,6 +179,7 @@ Text & Text::operator=(const Text &other) {
 	return *this;
 }
 ```
+
 ```c++
 // Move ctor
 Text::Text(Text && other):Book{other},topic{other.topic} {}
@@ -187,7 +190,6 @@ The above implementation of the move ctor is wrong! It's a copy construction, no
 `other` is pointing at an rvalue, but `other` istelf is an lvalue (general rule: if it has a name, it's an lvalue)
 
 `other.topic` is also an lvalue!
-
 
 ```c++
 // Move ctor
@@ -212,12 +214,14 @@ Text & Text::operator=(Text && other) {
 The operations we just wrote are equivalent to the built-in.
 
 Now consider:
+
 ```c++
 Text t1{...}, t2{...};
 Book *p1 = &t1, *p2 = &t2;
 ```
+
 What if we do `*p1 = *p2`?
-*Partial assignment* - it copies only the Book part.
+_Partial assignment_ - it copies only the Book part.
 `Book::operator=` runs. How can we fix this? Try making `operator=` virtual.
 
 ```c++
@@ -240,7 +244,7 @@ This doesn't compile. Why?
 
 Can we change it to `Text &operator= (const Book &other) override;`?
 
-**Note:** different return types are OK (as long as you return a subclass ref/ptr) but param types *must* be the same, or it's not an override, won't compile, and violates is-a.
+**Note:** different return types are OK (as long as you return a subclass ref/ptr) but param types _must_ be the same, or it's not an override, won't compile, and violates is-a.
 
 Therefore, assignment of a `Book` object to a `Text` var would be allowed:
 
@@ -255,6 +259,7 @@ Book *pb = &b;
 This compiles! But this uses a `Book` to assign a `Text` - BAD
 
 Also:
+
 ```c++
 Comic c{...};
 Comic *pc = &c;
@@ -269,7 +274,7 @@ If it is virtual - compiler allows mixed assignment.
 **Recommendation:** all superclasses should be **abstract.**
 
 Rewrite Book hierarchy:
-![](http://i.markdownnotes.com/2_n3fcdEp.PNG)
+![](/images/lectures/CS246/9-4.png)
 
 ```c++
 class AbstractBook {
@@ -307,7 +312,7 @@ Does not compile - because `AbstractBook &operator=(const AbstractBook &other);`
 
 Write a video game with 2 kinds of enemies - turtles and bullets. System randomly sends turtles and bullets, but bullets become more frequent later in the game.
 
-![](http://i.markdownnotes.com/2_ReOFTAT.PNG)
+![](/images/lectures/CS246/9-5.png)
 
 Never know exactly which enemy comes next, so can't call turtle/bullet ctors directly.
 
@@ -333,12 +338,14 @@ public:
 ```
 
 Client:
+
 ```c++
 Level *l = new NormalLevel;
 Enemy *e = l->createEnemy();
 ```
 
 ## Template Method Pattern
+
 ### THIS HAS NOTHING TO DO WITH C++ TEMPLATES
 
 Want subclasses to override superclass behaviour, but some aspects must stay the same.
@@ -372,21 +379,22 @@ Subclasses can't change the way a turtle was drawn, (head, then shell, then feet
 
 **Expansion:** The **Non-Virtual Interface (NVI)** idiom
 
-* a public virtual method is really two things:
-	* an interface to the client
-		* indicates provided behaviour, with pre/post conditions
-	* an interface to subclasses
-		* a "hook" to insert specialized behaviour
+- a public virtual method is really two things:
+  _ an interface to the client
+  _ indicates provided behaviour, with pre/post conditions
+  _ an interface to subclasses
+  _ a "hook" to insert specialized behaviour
 
-* Hard to separate these ideas if they are tied to the same functions.
-	* what if you want to later separate the customizable behaviour into two functions, with some unchanging code in between, while still providing the same public interface?
-* How could you make sure overriding functions conform to the pre/post conditions?
+- Hard to separate these ideas if they are tied to the same functions. \* what if you want to later separate the customizable behaviour into two functions, with some unchanging code in between, while still providing the same public interface?
+- How could you make sure overriding functions conform to the pre/post conditions?
 
 The NVI idiom says: all public methods should be non-virtual.
-* all virtual methods should be private, or at least protected
-* except the dtor.
+
+- all virtual methods should be private, or at least protected
+- except the dtor.
 
 **e.g.**
+
 ```c++
 class DigitalMedia {
  public:
@@ -407,11 +415,13 @@ class DigitalMedia {
 ```
 
 Generalizes Template Method:
-* puts *every* virtual function call inside a template method
+
+- puts _every_ virtual function call inside a template method
 
 ## STL Map - for creating dictionaries
 
 **e.g.** "arrays" that map string to int
+
 ```c++
 #include <map>
 

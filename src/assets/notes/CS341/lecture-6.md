@@ -26,18 +26,23 @@ The optimal solution, however, would be to use 2 x 3 cent coins.
 
 Given a set of activities, each with start, end times, select maximum subset, such that no 2 overlap.
 
-![](https://i.imgur.com/8OjVEVg.png)
+![](/images/lectures/CS341/6-1.png)
 
 The maximum we can choose here is 3.
 
 **Greedy approaches to this problem**
 
 - Pick shortest activity first
-  _ Counterexample: ![](https://i.imgur.com/5WwiRVs.png)
-  _ The above is not optimal.
-- Sort by start time \* Counterexample: The bike trip in the first image would be chosen first.
-- Sort by end time \* This works on our example - we'll prove that this gives the maximum number of activities.
-- Pick the interval with fewest conflicts \* Counterexample: ![](https://i.imgur.com/Oh3wQQP.png)
+  - Counterexample:
+    ![](/images/lectures/CS341/6-2.png)
+  - The above is not optimal.
+- Sort by start time
+  - Counterexample: The bike trip in the first image would be chosen first.
+- Sort by end time
+  - This works on our example - we'll prove that this gives the maximum number of activities.
+- Pick the interval with fewest conflicts
+  - Counterexample:
+    ![](/images/lectures/CS341/6-3.png)
 
 **Proof that sorting by end time works:**
 
@@ -47,16 +52,16 @@ A's are always "ahead" or better.
 
 _Claim:_ $\forall i a_1,  ..., a_i, b_{i+1}, ..., b_l$ is a solution by induction on $i$.
 
-_Basis: _$i = 1$ $a_1, b_2, b_3, ... b_l$ is a solution.
+_Basis:_ $i = 1$ $a_1, b_2, b_3, ... b_l$ is a solution.
 
-![](https://i.imgur.com/Hs4eSzW.png)
+![](/images/lectures/CS341/6-4.png)
 
 $a_1$ ends $\leq$ b_1 ends, so $a_1, b_2, b_3, ... b_l$ is a solution.
 
 _General Case:_
 Suppose $a_i,...,a{i-1},b{i},...$ is a solution.
 
-![](https://i.imgur.com/NxXVvxZ.png)
+![](/images/lectures/CS341/6-5.png)
 
 $a_i$ starts after $a{i-1}$ ends before $b_i$ So $a_1...a_i,b_{i+1}...$ is a solution.
 
@@ -94,7 +99,7 @@ We will not be taking sleep or eating into account for this example :'( Can you 
 
 As optimization: allows lateness but minimize maximum lateness of any assignment. Then all assignments are done by deadline if and only if optimization is 0.
 
-![](https://i.imgur.com/mZPzUI5.png) $d_i$ = deadline for job $i$
+![](/images/lectures/CS341/6-6.png) $d_i$ = deadline for job $i$
 
 For given ordering of jobs, $l(i)$ = lateness of job i
 
@@ -137,7 +142,7 @@ Aside: Can sort by swapping adjacent pairs (Bubble sort!)
 
 So we just need to analyze what happens when we swap 2 consecutive jobs.
 
-![](https://i.imgur.com/gxFYtqg.png)
+![](/images/lectures/CS341/6-7.png)
 
 $l_N(j) \leq l_O(j)$ because j is now earlier
 

@@ -367,8 +367,8 @@ This violates encapsulation: - client should be using `begin()`/`end()`
 We could:
 
 - make `Iterator`'s ctor private
-  _ then the client can't call `List::Iterator{...};`
-  _ but then neither can `List`
+  - then the client can't call `List::Iterator{...};`
+  - but then neither can `List`
 
 Sol'n:
 
@@ -483,12 +483,12 @@ Now change just `iter.cc`. What happens?
 Command `make`: builds the first target (`myProgram`) in the Makefile
 
 - What does `myProgram` depend on? `list.o`, `iter.o`, ...
-  _ recursively build these, if necessary
-  _ rebuild myProgram, if necessary.
+  - recursively build these, if necessary
+  - rebuild myProgram, if necessary.
 
 Dependency graph:
 
-![](http://i.markdownnotes.com/2_KSAUnJS.PNG)
+![](/images/lectures/CS246/6-1.png)
 
 If `iter.cc` changes:
 

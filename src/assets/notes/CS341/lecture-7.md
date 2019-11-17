@@ -10,8 +10,8 @@ Today we are going over two greedy algorithms
 
 - Given some symbols (e.g. a, b, ..., z) and frequency f() that each letter appears
 - We want to encode in binary such that
-  _ Can decode - use prefix code
-  _ Codes are small (given frequencies)
+  - Can decode - use prefix code
+  - Codes are small (given frequencies)
 
 Ex:
 ||Frequency|Code|
@@ -23,14 +23,14 @@ Ex:
 
 To decode 0101110 = 0 | 10 | 111 | 0 = ACDA
 
-![](https://i.imgur.com/jxroyap.png) Create codes as leaves of binary tree, we get prefix property
+![](/images/lectures/CS341/7-1.png) Create codes as leaves of binary tree, we get prefix property
 
 Average code length = .45 + .1(3) + .25(2) + .2(3) = $\sum f(z)$ (the internal nodes z) = .3 + .55 + 1.0
 
 Huffman's greedy algorithm:
 
 - take x, y to be the 2 least frequent letters
-- construct ![](https://i.imgur.com/LOVPSLl.png) f(z) <- f(x) + f(y)
+- construct ![](/images/lectures/CS341/7-2.png) f(z) <- f(x) + f(y)
 - remove x, y, add z. Repeat.
 
 Idea of proof that this gives the best code = min. average/expected length - Exchange proof:
@@ -41,7 +41,7 @@ Average code length goes down (or stays the same), so greedy has minimum average
 
 ## Optimal Caching
 
-![](https://i.imgur.com/jc1PKiY.png)
+![](/images/lectures/CS341/7-3.png)
 
 - Get sequence of request for blocks
 - When we get a request for a block that's not in cache, remove a block from the cache
@@ -99,11 +99,11 @@ There are two versions of this problem:
 
 Ex. W = 6
 
-| i   | v_i | \frac{v_i}{w_i} |
-| --- | --- | --------------- |
-| 1   | 12  | 3               |
-| 2   | 7   | 2\frac{1}[3}    |
-| 3   | 6   | 2               |
+| $i$ | $v_i$ | $\frac{v_i}{w_i}$ |
+| --- | ----- | ----------------- |
+| 1   | 12    | 3                 |
+| 2   | 7     | $2 \frac{1}{3}$   |
+| 3   | 6     | 2                 |
 
 For 0-1 case, greedy algorithm picks item 1, and no others. Value = 12. But a better solution is items 2 and 3, which gives value 13.
 

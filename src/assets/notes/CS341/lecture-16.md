@@ -28,7 +28,7 @@ $O(n+m)$ because we look at every vertex and every edge exactly once.
 
 ## Dynamic Programming for shortest paths.
 
-![](https://i.imgur.com/SSqJDU4.png) To get from u to v, try all possible _intermediate_ nodes X. Want shortest paths u to x and x to v.
+![](/images/lectures/CS341/16-1.png) To get from u to v, try all possible _intermediate_ nodes X. Want shortest paths u to x and x to v.
 
 In what way are subproblems u to x and x to v smaller?
 

@@ -18,7 +18,7 @@
         <a href="http://devpost.com/christinazhang">
           <i class="icon-devpost" />
         </a>
-        <a href="mailto:christina.s.zhang@euwaterloo.ca">
+        <a href="mailto:christina.s.zhang@uwaterloo.ca">
           <i class="icon-mail" />
         </a>
       </div>

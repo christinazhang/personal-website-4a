@@ -24,10 +24,10 @@ What's the mistake?
 
 Object destruction:
 
-1) dtor body runs
-2) fields are destructed
-3) base class dtor
-4) space is deallocated
+1. dtor body runs
+2. fields are destructed
+3. base class dtor
+4. space is deallocated
 
 Recall that inheritance is-a:
 
@@ -35,11 +35,12 @@ Recall that inheritance is-a:
 X *p = new Y{10, 20};
 delete p;
 ```
+
 This calls `~X`, but not `~Y`. So only `x`, but not `y` is freed.
 The dtor was chosen based on the type of pointer, not on the type of object.
 
 How can we ensure that deletion through a superclass ptr calls the subclass dtor?
-Make the dtor *virtual!*
+Make the dtor _virtual!_
 
 ```c++
 class X {
@@ -53,7 +54,7 @@ public:
 **ALWAYS MAKE THE DTOR VIRTUAL IN CLASSES THAT ARE MEANT TO HAVE SUBCLASSES**
 Even if the dtor doesn't do anything! You don't know what the subclass dtor is going to do.
 
-If a class is *not* meant to have subclasses, declare it **`final`**.
+If a class is _not_ meant to have subclasses, declare it **`final`**.
 
 ```c++
 class Y final: public X { // can't subclass this
@@ -61,7 +62,7 @@ class Y final: public X { // can't subclass this
 };
 ```
 
-FYI: we can use `final` even if it's a variable name because it's a *contextual keyword*, so almost all occurrences of `final` will be considered a variable, except in this specific case.
+FYI: we can use `final` even if it's a variable name because it's a _contextual keyword_, so almost all occurrences of `final` will be considered a variable, except in this specific case.
 
 ## Pure Virtual Methods & Abstract Classes
 
@@ -102,8 +103,9 @@ public:
 ```
 
 A class with a pure virtual method cannot be instantiated
-* called an **abstract** class.
-* purpose is to organize subclasses
+
+- called an **abstract** class.
+- purpose is to organize subclasses
 
 `Student s;` Does not compile.
 `Student *s = new Regular;` is okay!
@@ -113,8 +115,8 @@ Subclasses of an abstract class are also abstract, unless they implement all pur
 Non-abstract classes - called **concrete**.
 
 **UML:**
-Virtual & pure virtual methods: *italics*
-Abstract classes - italicize *class name.*
+Virtual & pure virtual methods: _italics_
+Abstract classes - italicize _class name._
 Static - underline.
 
 ## Templates
@@ -131,9 +133,10 @@ struct List::Node{
 };
 ```
 
-What if you want to store something else? Whole new class? OR **template** - class *parameterized by a type*
+What if you want to store something else? Whole new class? OR **template** - class _parameterized by a type_
 
 **Example:** Stack Template
+
 ```c++
 template <typename T> class Stack {
 	int size; cap;
@@ -146,6 +149,7 @@ public:
 ```
 
 **Example:** List Template
+
 ```c++
 template <typename T> class List {
 	struct Node {
@@ -166,6 +170,7 @@ public:
 ```
 
 **Client:**
+
 ```c++
 List <int> l1;
 List <List <int>> l2;
@@ -185,9 +190,11 @@ for (auto n: l1) {
 Do not split templates up in the .h and .cc. There is no .cc at all for templates.
 
 ## The Standard Template Library (STL)
+
 Large number of useful templates
 
 **e.g.** dynamic length arrays: `vector`
+
 ```c++
 #include <vector>
 std::vector <int> v{4, 5}; // 4, 5
@@ -203,6 +210,7 @@ v.emplace_back(7); // 4, 5, 6, 7 - v will grow on its own
 ```
 
 **e.g.** Looping over vectors:
+
 ```c++
 for (int i = 0; i < v.size(); ++i) {
 	cout << v[i] << endl;
@@ -210,6 +218,7 @@ for (int i = 0; i < v.size(); ++i) {
 ```
 
 **e.g** Iterator abstraction:
+
 ```c++
 for(vector<int>::iterator it = v.begin(); it!=v.end(); ++i) {
 	cout<< *it << endl;
@@ -218,30 +227,33 @@ for(vector<int>::iterator it = v.begin(); it!=v.end(); ++i) {
 
 or
 
-``` c++
+```c++
 for(auto n:v) {
 cout << n << endl;
 }
 ```
 
 **e.g.** Iterate in reverse:
+
 ```c++
 for(vector<int>::reverseiterator it = v.rbegin() ; v != v.rend(); ++it) {
 	cout << *it <<endl;
 }
 ```
+
 (or replace type with auto)
 
 `v.pop_back()` removes last element
 
 **e.g.** Use iterators to remove items from inside a vector
+
 ```c++
 auto it = v.erase(v.begin()); // erases item 0
 it = v.erase(v.begin() + 3); // erases item 3
 							 // returns iterator to first item after erase
 ```
 
-![](http://i.markdownnotes.com/2_F8CNz6C.PNG)
+![](/images/lectures/CS246/8-1.png)
 
 ```c++
 it = erase(it); // erases entire array
@@ -256,28 +268,31 @@ v.at(i) // checked version of v[i]
 ```
 
 ### Exceptions and Handlers
+
 What should happen if you go out of bounds?
 
 **Problem:**
-* `vector`'s codes can detect the error, but doesn't know what to do about it.
-* Client can respond, but can't detect the error.
+
+- `vector`'s codes can detect the error, but doesn't know what to do about it.
+- Client can respond, but can't detect the error.
 
 **C Solution:**
-* functions return a status code (like `scanf`), or set the global variable errno
-* leads to awkward programming
-* encourages programmers to ignore error checks
+
+- functions return a status code (like `scanf`), or set the global variable errno
+- leads to awkward programming
+- encourages programmers to ignore error checks
 
 **C++ Solution**
-* When an error condition arises, the function raises an **exception**
-* What happens? By default, execution stops.
-	* Strange baseball examples with Brad:
-		* Usually you pass the baseball back and forth with your function
-		* Sometimes the function will chuck the ball, aimed at your face
-		* You duck and break a window
-		* Sometimes people don't duck
-			* Your other option is to catch it
-			* And then you can say, "WHAT?" (`r.what()`)
-* But we can write handlers to catch exns and deal with them
+
+- When an error condition arises, the function raises an **exception**
+- What happens? By default, execution stops.
+  - Strange baseball examples with Brad:
+  - Usually you pass the baseball back and forth with your function
+  - Sometimes the function will chuck the ball, aimed at your face
+  - You duck and break a window
+  - Sometimes people don't duck
+  - Your other option is to catch it \* And then you can say, "WHAT?" (`r.what()`)
+- But we can write handlers to catch exns and deal with them
 
 ```c++
 vector::at throws std::out_of_range
@@ -311,10 +326,9 @@ int main() {
 `g` calls `f`
 `f` throws `out_of_range`
 
-* `g` has no handler for `out_of_range`
-* Control goes back through the call chain (**unwinds** the stack) until a handler is found
-	* in this case, all the way back to `main`, `main` handles the exn.
-* If no handler found, program terminates.
+- `g` has no handler for `out_of_range`
+- Control goes back through the call chain (**unwinds** the stack) until a handler is found \* in this case, all the way back to `main`, `main` handles the exn.
+- If no handler found, program terminates.
 
 A handler might execute part of the recovery - execute some corrective code and throw another exn.
 
@@ -339,11 +353,12 @@ catch (SomeErrorType s) {
 `throw` vs .`throw s`
 `throw` - actual type of s is retained
 `throw s` - rethrows a exn of type `SomeErrorType`
-`s` - may  have been a subtype of `SomeErrorType`
+`s` - may have been a subtype of `SomeErrorType`
 
-![](http://i.markdownnotes.com/2_9pDbzZ0.PNG)
+![](/images/lectures/CS246/8-2.png)
 
 A handler can act as a catch-all:
+
 ```c++
 try {...}
 catch (...) { // THIS TIME THE ... ACTUALLY MEANS "..." it means catch all exns :)
@@ -352,10 +367,12 @@ catch (...) { // THIS TIME THE ... ACTUALLY MEANS "..." it means catch all exns 
 ```
 
 You can throw anything you want
-* You don't have to throw objects
-* You can throw ints! (see exfib.cc, exfact.cc in the repository)
+
+- You don't have to throw objects
+- You can throw ints! (see `exfib.cc`, `exfact.cc` in the repository)
 
 **e.g.** Define your own excn classes
+
 ```c++
 class BadInput{};
 
@@ -373,13 +390,14 @@ catch (badInput &b) { // catch by reference - avoids slicing the exception
 ## Design Patterns Continued
 
 Guiding principle:
-* program to the interface, not the implementation
-* abstract base classes define the interface
-	* work with ptrs to the abstract class & call their methods
-	* concrete subclasses can be swapped in and out
-		* abstraction over a variety of behaviours
+
+- program to the interface, not the implementation
+- abstract base classes define the interface
+  - work with ptrs to the abstract class & call their methods
+  - concrete subclasses can be swapped in and out \* abstraction over a variety of behaviours
 
 **e.g.** Iterator Pattern
+
 ```c++
 class List {
 	...
@@ -421,6 +439,7 @@ void foreach(AbstractIterator &start, AbstractIterator &end, void (*f)(int)) {
 ```
 
 ### Observer Pattern
+
 Publish-subscribe model:
 One class: publisher/subject - generates data
 One or more subscriber/observer classes - react to the data
@@ -431,16 +450,18 @@ observers = graphs
 When cells change, graphs update.
 
 Can be many different kinds of observers
+
 - Subject should not need to know all the details
 
 **e.g.** Observer pattern
 
-![](http://i.markdownnotes.com/2_VIfIuS4.PNG)
+![](/images/lectures/CS246/8-3.png)
 
 Sequence of method calls:
-1) `Subject`'s state changes
-2) `Subject::notifyObservers()` - calls each `Observer`'s notify
-3) Each `Observer` calls `ConcreteSubject::getState` to query the state and react accordingly.
+
+1. `Subject`'s state changes
+2. `Subject::notifyObservers()` - calls each `Observer`'s notify
+3. Each `Observer` calls `ConcreteSubject::getState` to query the state and react accordingly.
 
 **e.g.** Horse races
 Subject: publishes winners

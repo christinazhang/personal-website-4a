@@ -513,7 +513,7 @@ Node m = *n; // copy ctor
 Node *p = new Node(*n); // copy ctor
 ```
 
-![](http://i.markdownnotes.com/2_2vGu8Oa.PNG)
+![](/images/lectures/CS246/4-1.png)
 
 Simple copy of fields -> only the first node was actually copied (**shallow **copy)
 

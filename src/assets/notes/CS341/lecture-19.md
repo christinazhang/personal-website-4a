@@ -34,7 +34,7 @@ Common feature: if the answer is YES, there is some succinct info (a "certificat
 
 Furthermore, A is a **polynomial time verification algorithm if** (prof is going too fast help)
 
-**NP = ** {decision problems that can be verified in polynomial time} i.e, we have polynomial time verification algorithms
+**NP** = {decision problems that can be verified in polynomial time} i.e, we have polynomial time verification algorithms
 
 NP stands for "non-deterministic polynomial time"
 
@@ -68,7 +68,7 @@ It's easy to verify n is _not_ prime, show natural numbers $a, b \geq 2$ s.t. $a
 - $P \subseteq NP$, $P \subseteq coNP$
 - Any problem in NP can be solved in $O(2^n^k)$ (try all certificates)
 
-**Definition: ** a decision problem is NP-complete if:
+**Definition:** a decision problem is NP-complete if:
 
 - $X \in NP$
 - For every $Y \in NP, Y \leq pX$
@@ -91,22 +91,23 @@ So to prove Z is NP complete, we just need to prove $X \leq_p Z$ where X is a kn
 1. Independent Set $\in$ NP
    - Certificate: the set S
    - Verification:
-     _ check that no edge (u,v) with u, v $\in$ S
-     _ check $|S| \geq k$ \* We can do these in polynomial time
+     - check that no edge (u,v) with u, v $\in$ S
+     - check $|S| \geq k$
+     - We can do these in polynomial time
 2. 3-SAT $\leq_p$ Independent Set
 
 Suppose we have a (black box) polynomial algorithm for Ind. Set, give a polynomial algorithm for 3-SAT.
 
 - Input: 3-SAT formula F, clauses $C_1...C_m$ with variables $x_1,...,x_n$
-- $C_i = (l_i_1 \lor l_i_2 \lor l_i_3)$ e.g. $(x_1 \lor \lnot x_2 \lor x_3)$
-  _ Create ![](https://i.imgur.com/mqCzity.png) for each clause $C_i$. We have 3m vertices.
-  _ Example: $(x_1 \lor \lnot x_2 \lor x_3) \land (x_1 \lor x_2 \lor \lnot x_3)$ ![](https://i.imgur.com/vyf63G5.png)
-  _ Connect $x_i$ to $\lnot x_i$ every time they appear.
-  _ The graph for $x_i$ is a complete bipartite graph.
+- $C_i = (l_{i1} \lor l_{i2} \lor l_{i3})$ e.g. $(x_1 \lor \lnot x_2 \lor x_3)$
+  - Create ![](/images/lectures/CS341/19-1.png) for each clause $C_i$. We have 3m vertices.
+  - Example: $(x_1 \lor \lnot x_2 \lor x_3) \land (x_1 \lor x_2 \lor \lnot x_3)$ ![](/images/lectures/CS341/19-2.png)
+  - Connect $x_i$ to $\lnot x_i$ every time they appear.
+  - The graph for $x_i$ is a complete bipartite graph.
 - Claim: F has a satisfying truth table assignment iff G has independent set of size $\geq$ m.
 - Whole idea of our algorithm for 3-SAT:
-  _ From F, construct G.
-  _ Give G, m to subroutine to solve Ind.Set \* Return answer (YES/NO) from the subroutine.
+  - From F, construct G.
+  - Give G, m to subroutine to solve Ind.Set \* Return answer (YES/NO) from the subroutine.
 - Proof of Claim:
-  _ => Suppose f is satisfiable. Then every clause $C_i$ has a true literal. Choose corresponding vertex in the triangle. This gives m vertices, they form an independent set.
-  _ <= Suppose G has an independent set of size $\geq$ m. Each triangle has at least 1 vertex, so the independent set has size = m. Make those literals TRUE. This is valid truth-value-assignment (we never set both $x_i$ and $\lnot x_i$ to TRUE). And this satisfies all clauses. \* Note: any variable not yet assigned a value can be set arbitrarily.
+  - => Suppose f is satisfiable. Then every clause $C_i$ has a true literal. Choose corresponding vertex in the triangle. This gives m vertices, they form an independent set.
+  - <= Suppose G has an independent set of size $\geq$ m. Each triangle has at least 1 vertex, so the independent set has size = m. Make those literals TRUE. This is valid truth-value-assignment (we never set both $x_i$ and $\lnot x_i$ to TRUE). And this satisfies all clauses. \* Note: any variable not yet assigned a value can be set arbitrarily.

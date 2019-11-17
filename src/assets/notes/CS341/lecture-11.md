@@ -10,10 +10,10 @@ Note that $0 \leq m \leq {n \choose 2}$ for undirected graphs (for directed grap
 
 We also assume no loops and multiple edges.
 
-![](https://i.imgur.com/sUtidKw.png)
+![](/images/lectures/CS341/11-1.png)
 $V = \{a, b, c, d, e\}, E = \{(a, b), (b, c), ...\}$
 
-![](https://i.imgur.com/gzm83E1.png)
+![](/images/lectures/CS341/11-2.png)
 $V = \{a, b, c\}, E = \{(a, b), (b, c), (a, c), (c, a)\}$
 
 **Basic Definitions:**
@@ -21,13 +21,15 @@ $V = \{a, b, c\}, E = \{(a, b), (b, c), (a, c), (c, a)\}$
 - $u, v \in V$ are **adjacent** (neighbours) if $(u, v) \in E$
 - $u \in V$ is **incident** to $e \in E$ if $e = (u, v)$
 - $\deg(v)$ "the **degree** of v" is the number of incident edges.
-- for directed graph G: \* ![](https://i.imgur.com/Hsp4F3i.png) in degree = 2, out degree = 3
+- for directed graph G:
+  - ![](/images/lectures/CS341/11-3.png) in degree = 2, out degree = 3
 - a **path** is a sequence of verticies $v_1, v_2, ... v_k$ where $(v_i, v_i+1) \in E \forall i = 1, ..., k-1$
 - a **simple path** does not repeat vertices.
 - a **cycle** is a path that starts and ends with the same vertex.
 - a **connected** graph has a path between every two vertices
 - a **tree** is an undirected graph that is connected and has no cycles.
-- a **connected component** is a maximal connected subgraph \* ![](https://i.imgur.com/F19EE9U.png) 3 connected components
+- a **connected component** is a maximal connected subgraph
+  - ![](/images/lectures/CS341/11-4.png) 3 connected components
 
 Some history: this was created by Euler to ruin dates and solve the [Konigsberg Bridge Problem](https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg) in 1735.
 
@@ -41,17 +43,17 @@ Applications of graph theory:
 - adjacency matrix $A[i, j] = \begin{cases} 1 \text{ if } (i, j) \in E \\ 0 \text{ otherwise}\end{cases}$
   - $O(n^2)$ - even if the graph is _sparse_, i.e. $m << n^2$
   - for example, a tree
-    _ advantages - use matrix algorithms
-    _ you can query "is (i,j) an edge?" at O(1) time
+    - advantages - use matrix algorithms
+    - you can query "is (i,j) an edge?" at $O(1)$ time
 - adjacency lists
-  _ for each vertex $v$, store list of $u$ such that $(v, u) \in E$
-  _ ![](https://i.imgur.com/gzm83E1.png)
-  _ a: b, c
-  _ b: c
-  _ c: a
-  _ for undirected graphs G, every edge appears twice (u: v, v: u)
-  _ $O(n + m)$ space - linear space
-  _ advantage: less space \* disadvantage: to test "is $(i, j) \in E$", it takes $\Theta(n)$
+  - for each vertex $v$, store list of $u$ such that $(v, u) \in E$
+  - ![](/images/lectures/CS341/11-5.png)
+  - a: b, c
+  - b: c
+  - c: a
+  - for undirected graphs G, every edge appears twice (u: v, v: u)
+  - $O(n + m)$ space - linear space
+  - advantage: less space \* disadvantage: to test "is $(i, j) \in E$", it takes $\Theta(n)$
 
 ### Exploring Graphs
 
@@ -59,9 +61,9 @@ There are two ways to search - breadth-first (BFS) and depth-first search (DFS).
 
 ### Breadth First Search
 
-![](https://i.imgur.com/M6cVsLX.png) "Cautious Search" - check everything 1 edge away, then 2... etc. Order of discovery: 1, {2, 3, 5, 8} (1's neighbours) {4, 5} (2's neighbours), 7 {6's neighbour}
+![](/images/lectures/CS341/11-6.png) "Cautious Search" - check everything 1 edge away, then 2... etc. Order of discovery: 1, {2, 3, 5, 8} (1's neighbours) {4, 5} (2's neighbours), 7 {6's neighbour}
 
-![](https://i.imgur.com/bvXH23t.png)
+![](/images/lectures/CS341/11-7.png)
 
 We use a **queue** to store vertices _discovered,_ but not _explored._
 

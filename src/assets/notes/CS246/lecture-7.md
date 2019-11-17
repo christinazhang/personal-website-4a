@@ -1,12 +1,14 @@
 # Lecture 7
 
 ## Generalize with variables
+
 ```bash
  CXX = g++-5 (compiler's name)
  CXXFLAGS = -std=c++14 -Wall (turns on all warnings)
 ```
 
 **e.g.**
+
 ```bash
 iter.o: iter.cc iter.h
 ${CXX} ${CXXFLAGS} -c iter.cc
@@ -14,17 +16,21 @@ etc.
 ```
 
 **Shortcut:** for any rule of the form
+
 ```bash
 x.o: x.cc x.h b.h ...
 ```
+
 You can leave out the build command - make guesses that it is
+
 ```bash
 ${CXX} ${CXXFLAGS} -c x.cc -o x.o
 ```
 
 Biggest problem with writing Makefiles
-* tracking dependencies
-* and maintaining them if they change
+
+- tracking dependencies
+- and maintaining them if they change
 
 We can get help from g++!
 
@@ -35,6 +41,7 @@ g++14 -MMD -c iter.cc
 It creates a file named iter.d! (and iter.o)
 
 iter.d:
+
 ```bash
 iter.o: iter.cc list.h node.h
 ```
@@ -42,6 +49,7 @@ iter.o: iter.cc list.h node.h
 Now just include this in the Makefile!
 
 Makefile:
+
 ```bash
 CXX = g++-5
 CXXFLAGS = -std=c++14 -Wall -MMD
@@ -59,7 +67,7 @@ ${EXEC}: ${OBJECTS}
 clean:
 	rm ${OBJECTS} ${EXEC} ${DEPENDS}
 
-```    
+```
 
 This file is in the repository, and you can just replace the object files with your object files, and change the name of EXEC to your program.
 
@@ -74,11 +82,12 @@ Popular standard: UML (Unified Modelling Language)
 
 Modelling a class:
 
-![](http://i.markdownnotes.com/2_SreNic8.PNG)
+![](/images/lectures/CS246/7-1.png)
 
 Visibility: `-` = private, `+` = public
 
 Relationship: Composition of Classes
+
 ```c++
 class Vec {
     int x,y;
@@ -86,7 +95,9 @@ class Vec {
     Vec (int x, int y);
 };
 ```
+
 Two Vecs define a Basis:
+
 ```c++
 class Basis {
     Vec v1, v2;
@@ -107,19 +118,21 @@ class Basis {
 Embedding one object (e.g. Vec) inside another (Basis) called composition. Relationship between Basis & Vec called "owns-aa". A Basis "owns" a Vec object (2 of them, in fact)
 
 If A "owns a" B, then typically
-* B has no identity outside A (no independent existence)
-* If A is destroyed, B is destroyed
-* If A is copied, B is copied (deep copies)
+
+- B has no identity outside A (no independent existence)
+- If A is destroyed, B is destroyed
+- If A is copied, B is copied (deep copies)
 
 **e.g. **A car owns 4 wheels - a wheel is part of a car
-* Destroy the car -> destroy the wheels
-* Copy the car -> copy the wheels
+
+- Destroy the car -> destroy the wheels
+- Copy the car -> copy the wheels
 
 Implementation: Usually as a composition of classes
 
-**Modelling: **
-![](http://i.markdownnotes.com/2_9ivvtRg.PNG)
-![](http://i.markdownnotes.com/2_aXr85xy.PNG)
+**Modelling:**
+![](/images/lectures/CS246/7-2.png)
+![](/images/lectures/CS246/7-3.png)
 Means A owns some # of B's
 
 Can annotate with multiplicities, field names (links on course website)
@@ -132,20 +145,22 @@ The catalogue contains the parts, but the parts have an independent existence.
 
 This is a "has-a" relationship ("aggregation")
 
-If A "has a" B, then *typically:*
-* B has an existence, apart from its association with A.
-* If A is destroyed, B lives on
-* If A is copied, B is not (shallow copies)
-	* copies of A share the same B.
+If A "has a" B, then _typically:_
+
+- B has an existence, apart from its association with A.
+- If A is destroyed, B lives on
+- If A is copied, B is not (shallow copies) \* copies of A share the same B.
 
 **e.g.**
-* parts in a catalogue
-* ducks in a pond
+
+- parts in a catalogue
+- ducks in a pond
 
 **Aggregation in UML:**
-![](http://i.markdownnotes.com/2_6riihnl.PNG)
+![](/images/lectures/CS246/7-4.png)
 
 Typical implementation: pointer fields
+
 ```c++
 class Pond {
 	Duck *ducks[maxDucks];
@@ -154,7 +169,9 @@ class Pond {
 ```
 
 ## Specialization/Generalization (Inheritance)
+
 Suppose you want to track your collection of books:
+
 ```c++
 class Book{
 	string title, author;
@@ -183,23 +200,27 @@ class Comic{
 };
 ```
 
-This is okay - but it doesn't capture the relationship among ```Book```, ```Text```, and ```Comic```. And how do we create an array (or linked list) that contains a mixture of these?
+This is okay - but it doesn't capture the relationship among `Book`, `Text`, and `Comic`. And how do we create an array (or linked list) that contains a mixture of these?
 
 **Possible things we could do:**
+
 1. Use a union
+
 ```c++
 union BookTypes {Book *b, Text *t, Comic *c};
 BookTypes myBooks[20];
 ```
 
 2. Array of `void*`.
-	* Store ptrs to `Book`, `Comic`, `Text`, converted to `void*`.
+   - Store ptrs to `Book`, `Comic`, `Text`, converted to `void*`.
 
 Not good solutions - subverts the type system
 **Rather, observe:** `Texts` & `Comics` are kinds of `Books`
-* They're books with extra features.
+
+- They're books with extra features.
 
 **Base class (or superclass)**
+
 ```c++
 class Book{
 	string title, author;
@@ -211,6 +232,7 @@ class Book{
 ```
 
 **Derived classes (subclasses)**
+
 ```c++
 class Text: public Book {
 	string topic;
@@ -227,7 +249,7 @@ class Comic: public Book {
 };
 ```
 
-Derived classes *inherit* fields and methods from the base class. So, `Text`, `Comic`, get `title`, `author`, `numPages`.
+Derived classes _inherit_ fields and methods from the base class. So, `Text`, `Comic`, get `title`, `author`, `numPages`.
 
 Any method that can be called on `Book` can be called on `Text`, `Comic`.
 
@@ -238,7 +260,8 @@ Can `Text` and `Comic` see them? NO - even sublcasses can't see them.
 
 How do you initialize `Text`? We need `title`, `author`, `numPages`, `topic`.
 
-You can *try*:
+You can _try_:
+
 ```c++
 class Text:public Book {
 	...
@@ -247,17 +270,20 @@ class Text:public Book {
 			title{title}, author{author}, numPages{numPages}, topic{topic} {}
 };
 ```
+
 But it won't compile! This is wrong for 2 reasons:
+
 1. `title`, `author`, `numPages` are not fields of Text - not allowed in MIL
 2. When an object is constructed:
-	1. Space is allocated
-	2. Superclass part is constructed **\*NEW\***
-	3. Fields constructed
-	4. ctor body runs
+   1. Space is allocated
+   2. Superclass part is constructed **\*NEW\***
+   3. Fields constructed
+   4. ctor body runs
 
 and 2. doesn't work - Book has no default ctor.
 
 **Fix:** Invoke Book's ctor in Text's MIL.
+
 ```c++
 class Text: public Book {
 	...
@@ -268,11 +294,11 @@ class Text: public Book {
 };
 ```
 
-If superclass has no default ctor, the subclass *must* call a superclass ctor in the MIL.
+If superclass has no default ctor, the subclass _must_ call a superclass ctor in the MIL.
 
 Good reasons to keep superclass fields inaccessible to subclasses.
 
-If you want to give subclasses access to certain members, you can use *protected* visibility.
+If you want to give subclasses access to certain members, you can use _protected_ visibility.
 
 ```c++
 class Book {
@@ -309,18 +335,20 @@ class Book {
 ```
 
 Relationship among `Text`, `Comic`, `Book`, is called "is-a"
-* a `Text` is a `Book`
-* a `Comic` is a `Book`
+
+- a `Text` is a `Book`
+- a `Comic` is a `Book`
 
 UML:
-![](http://i.markdownnotes.com/2_ajXeyPi.PNG)
+![](/images/lectures/CS246/7-5.png)
 
 Visibility for protected: `#`
 
 Method `isItHeavy` - when is a Book heavy?
-* for ordinary Books: > 200 pages
-* for Texts: > 500 pages
-* for Comics: > 30 pages
+
+- for ordinary Books: > 200 pages
+- for Texts: > 500 pages
+- for Comics: > 30 pages
 
 ```c++
 class Book {
@@ -352,27 +380,31 @@ cout << b.isItHeavy() //false
 ```
 
 Since inheritance models is-a, we can do this:
+
 ```c++
 Book b = Comic{"A big Comic", "____", 40, "_____"};
 ```
 
 **Question:** is `b` heavy?
-* `b.isItHeavy` - true or false?
-* Which isItHeavy runs? `Book::isItHeavy` or `Comic::isItHeavy`
+
+- `b.isItHeavy` - true or false?
+- Which isItHeavy runs? `Book::isItHeavy` or `Comic::isItHeavy`
 
 **Answer:** No, `b` is not heavy - `Book::isItHeavy` runs. Why?
 
-![](http://i.markdownnotes.com/2_pvfzv9t.PNG)
+![](/images/lectures/CS246/7-6.png)
 
 `Book b = Comic{_____};`
-* Tries to fit a `Comic` object where there is only space for a `Book` obj
-What happens? `Comic` is *sliced*
-* `hero` field chopped off
-* `Comic` coerced into being a `Book`
+
+- Tries to fit a `Comic` object where there is only space for a `Book` obj
+  What happens? `Comic` is _sliced_
+- `hero` field chopped off
+- `Comic` coerced into being a `Book`
 
 So `Book b = Comic{_____};`converts the `Comic` into a `Book` and `Book::isitHeavy` runs.
 
 When accessing objects through a pointer, slicing is unnecessary and doesn't happen.
+
 ```c++
 Comic c{____, ____, 40, ___};
 Book *pb = &c;
@@ -381,17 +413,17 @@ cout << pc->isitHeavy() // True
 	 << pb->isitHeavy(); // False
 ```
 
-* and still `Book::isItHeavy` runs when we call `pb->isItHeavy`.
+- and still `Book::isItHeavy` runs when we call `pb->isItHeavy`.
 
 Same object behaves differently depending on what type of ptr points to it.
 
-Compiler uses the type of the *pointer* (or reference) to decide which `isItHeavy` to run - does not consider the actual type of the object.
+Compiler uses the type of the _pointer_ (or reference) to decide which `isItHeavy` to run - does not consider the actual type of the object.
 
 Means a `Comic` is only a `Comic` when a `Comic` ptr (or ref) points to it - probably not what we want.
 
 How do we make `Comic` act like a `Comic`, even when pointed at by a `Book` ptr?
 
-Declare the method *virtual*.
+Declare the method _virtual_.
 
 ```c++
 class Book {
@@ -429,6 +461,7 @@ cout << pc->isItHeavy() // true
 Virtual methods - choose which class' method to run based on the actual type of the object at runtime.
 
 e.g. MyBookCollection
+
 ```c++
 Book *myBooks[20];
 ...
@@ -441,11 +474,12 @@ for(int i = 0; i < 20; ++i) {
 
 Accommodates multiple types under one abstraction: **polymorphism** ("many forms").
 
-*Note:* this is why a f'n void f(istream &in) can be passed an ifstream - ifstream is a subclass of istream.
+_Note:_ this is why a f'n void f(istream &in) can be passed an ifstream - ifstream is a subclass of istream.
 
 ### DANGER
 
 Consider:
+
 ```c++
 class One{
 	int x,y;
@@ -470,9 +504,8 @@ Two myArray[2] = {{1, 2, 3}, {4, 5, 6}};
 f(myArray);
 ```
 
-
 What happens:
-![](http://i.markdownnotes.com/2_KVxSWHn.PNG)
+![](/images/lectures/CS246/7-7.png)
 
 Data is misaligned.
 

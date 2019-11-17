@@ -2,10 +2,13 @@
 
 November 28, 2017
 
-## Major Open Question: $P \stackrel{?}{=} NP$
+## Major Open Question: $P ?= NP$
 
-If P = NP:
-oops complete later
+If $P = NP$:
+all the NP problems can be done in polynomial time.
+
+If $P \neq NP$:
+None of the NP-complete problems can be done in polynomial time.
 
 Almost all "natural" problems in NP are known to be in P or NP-complete.
 
@@ -56,11 +59,11 @@ Exceptions open in Garey & Johnston '79 (very famous book on NP-completeness)
 
 For points in a plane with Euclidean distances
 
-![](https://i.imgur.com/miSTm2m.png) Complete graph, weight of edge = Euclidean distance between the points
+![](/images/lectures/CS341/23-1.png) Complete graph, weight of edge = Euclidean distance between the points
 
-![](https://i.imgur.com/4q8BqVM.png) The crucial property we need: the triangle inequality from high school! $|ab| + |bc| \geq |ac|$
+![](/images/lectures/CS341/23-2.png) The crucial property we need: the triangle inequality from high school! $|ab| + |bc| \geq |ac|$
 
-In general graph, the triangle inequality does not always hold: ![](https://i.imgur.com/OgOmwRW.png)
+In general graph, the triangle inequality does not always hold: ![](/images/lectures/CS341/23-3.png)
 
 **Approximation Algorithm:**
 
@@ -70,7 +73,7 @@ In general graph, the triangle inequality does not always hold: ![](https://i.im
 
 This constructs a tour in polynomial time.
 
-![](https://i.imgur.com/VezunF9.png)
+![](/images/lectures/CS341/23-4.png)
 
 Let $l$ be the length of tour found by this algorithm, and $l_{\text{TSP}}$ be the length of the minimum Travelling Salesman tour.
 

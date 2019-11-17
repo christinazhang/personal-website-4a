@@ -100,7 +100,7 @@ Node *np = new Node {1, new Node {2, new Node {3, nullptr}}};
 If np goes out of scope: the pointer, (np) is reclaimed (stack-allocated) while entire list is leaked.
 
 If we say `delete np`:
-![](http://i.markdownnotes.com/2_XcWp3mq.PNG)
+![](/images/lectures/CS246/5-1.png)
 
 - runs \*np's dtor - does nothing.
 - first node is deleted, the rest are leaked.
@@ -359,7 +359,7 @@ struct Vec {
 
 How do we implement k\*v? You don't. It can't be a member function, first argument is not a Vec, so it must be external:
 
-```
+```c++
 Vec operator*(const int k, const Vec &v){
 	return v*k;
 }
@@ -367,7 +367,7 @@ Vec operator*(const int k, const Vec &v){
 
 I/O Operators:
 
-```
+```c++
     struct Vec {
         ...
         ostream &operator << (ostream &out) {

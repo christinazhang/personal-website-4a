@@ -4,7 +4,7 @@ November 23, 2017
 
 ## Circuit-SAT
 
-![](https://i.imgur.com/T7MEbnS.png)
+![](/images/lectures/CS341/22-1.png)
 
 - $y_1 = \lnot x_3$
 - $y_2 = x_1 \lor y_1$

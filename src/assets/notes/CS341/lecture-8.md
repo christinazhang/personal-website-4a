@@ -57,9 +57,9 @@ else return {i}U OPT(p(i))
 Maximum Common Subsequence
 Given 2 strings find largest common subsequence
 
-(TA)(R)M(A)C
+`(TA)(R)M(A)C`
 
-CA(TA)MA(RA)N, so 4 is the longest subsequence, note it doesn't need to be consecutive
+`CA(TA)MA(RA)N`, so 4 is the longest subsequence, note it doesn't need to be consecutive
 
 Note: We can skip letters, but preserve ordering.
 

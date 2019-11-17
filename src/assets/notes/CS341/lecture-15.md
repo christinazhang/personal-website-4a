@@ -6,7 +6,8 @@ October 31, 2017
 
 ### Prim's Algorithm
 
-![](https://i.imgur.com/0ljutL2.png) Start with vertex $s$. $C$ = vertices joined to S in current tree. Pick minimum weight edge leaving C.
+![](/images/lectures/CS341/15-1.png)
+Start with vertex $s$. $C$ = vertices joined to S in current tree. Pick minimum weight edge leaving C.
 
 **Exercise:** If all edge weights are different, MST is unique.
 
@@ -22,7 +23,7 @@ _Recall:_ a PQ maintains a set of weighted elements. Operations:
 
 Heap gives $\Theta(\log k)$ per operation for $k$ elements.
 
-In our case, we make a heap of edges leaving C. When adding v to C: ![](https://i.imgur.com/7ij2o4z.png)
+In our case, we make a heap of edges leaving C. When adding v to C: ![](/images/lectures/CS341/15-2.png)
 
 Each edge enters the heap once, leaves once. So, the number of PQ operations:
 
@@ -40,8 +41,6 @@ Practical improvement (gives the same worst case run time) - make a heap of _ver
 
 _Recall:_ BFS from vertex $s$ finds shortest paths (counting number of edges) from $s$ to all vertices.
 
-![](https://i.imgur.com/dfofT0u.png) & run BFS. This is correct, but very inefficient.
-
 There are 3 flavours to this problem:
 
 1. Given u, v - find shortest path from u to v.
@@ -52,7 +51,7 @@ There are 3 flavours to this problem:
 
 Solving (1) seems to involve solving (2). Today, we're looking at (2).
 
-![](https://i.imgur.com/9jtxxZX.png) S to D - SBD (Length 5) S to E - SBE (Length 4)
+![](/images/lectures/CS341/15-4.png) S to D - SBD (Length 5) S to E - SBE (Length 4)
 
 Question: Are edge weights $\geq$ 0?
 
@@ -60,7 +59,7 @@ Question: Are edge weights $\geq$ 0?
 - Non-negative weights - Dijkstra's Algorithm
 - Acyclic graphs with possible negative weights - covered later.
 
-We always assume directed graphs. If undirected, we make each edge a cycle
+We always assume directed graphs. If undirected, we make each edge a cycle.
 
 ## Dijkstra's Algorithm
 
@@ -70,7 +69,7 @@ Output: Shortest path from S to every other vertex v.
 
 General situation: We have a tree of shortest paths to every vertex in B.
 
-![](https://i.imgur.com/r8Bib6E.png)
+![](/images/lectures/CS341/15-5.png)
 
 Choose edge (x, y) $x \in B, y \notin B$ and minimize $d(s, x)$ (the distance from s to x (known)) + $w(x, y)$ (the weight of the edge). Call this minimum value d.
 

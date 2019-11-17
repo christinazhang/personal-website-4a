@@ -49,7 +49,7 @@ Total: $\Theta(n \log n)$ (sort) $+ \Theta(n \text{ (loop)}\cdot \log n \text{ (
 
 Sorted array
 
-![](https://i.imgur.com/tAH73Gq.png)
+![](/images/lectures/CS341/3-1.png)
 
 ```none
 i <- 1, j <- n
@@ -112,7 +112,7 @@ $T(n) = 2T(\frac{n}{2} + c \cdot n)$, n even $T(1) = 0$
 
 For n a power of 2:
 
-![](https://i.imgur.com/AjRC0Xs.png)
+![](/images/lectures/CS341/3-2.png)
 
 Total: $(log n + 1 levels) \times (c \cdot n) = c \cdot n\log n + c \cdot n$
 

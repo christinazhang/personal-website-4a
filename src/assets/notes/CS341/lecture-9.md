@@ -22,8 +22,8 @@ A change is:
 - Adding a letter
 - Deleting a letter
 - Changing one letter - cost may depend on change
-  _ e.g. A to S costs 1 (they're next to each other on keyboard)
-  _ A to C costs 2
+  - e.g. A to S costs 1 (they're next to each other on keyboard)
+  - A to C costs 2
 
 Application in bioinformatics:
 
@@ -59,21 +59,21 @@ Order of solving suproblems:
 
 We can think of M as a matrix:
 
-![](https://i.imgur.com/DE6BhZj.png)
+![](/images/lectures/CS341/9-1.png)
 
 Other possibilities:
 
 Go along the rows
 
-![](https://i.imgur.com/SMhZh0C.png)
+![](/images/lectures/CS341/9-2.png)
 
 Go along the columns
 
-![](https://i.imgur.com/qOmy7tq.png)
+![](/images/lectures/CS341/9-3.png)
 
 Go diagonally
 
-![](https://i.imgur.com/EIME3gT.png)
+![](/images/lectures/CS341/9-4.png)
 
 Array M[0 ... m, 0 ... n]
 
@@ -129,13 +129,13 @@ Given items $1, ..., n$ and probabilities $p_1, ... p_n$, construct a binary sea
 
 Suppose $p_1 = p_2 = ... p_4 = \frac{1}{4}$
 
-![](https://i.imgur.com/92yv9m6.png) Search cost: $4 \cdot \frac{1}{4} \cdot 3 = 3$
+![](/images/lectures/CS341/9-5.png) Search cost: $4 \cdot \frac{1}{4} \cdot 3 = 3$
 
 Now suppose $p_1 = 0.7, p_2 = p_3 = p_4 = .1$
 
 Search cost is $.7(3) + 3(.1) \cdot 3 = 3$
 
-![](https://i.imgur.com/ueNXydD.png)
+![](/images/lectures/CS341/9-6.png)
 
 $.7(2) + (.1)3 + 2(.1)4 = 2.5$
 
@@ -149,11 +149,11 @@ Idea: choose root = split items into $1, ..., i$ and $i+1, ..., n$ - 2 subproble
 
 Subproblems - build optimal tree for items i, i+1, ..., j. So $O(n^2)$ subproblems. To solve for items $i, ..., j$
 
-![](https://i.imgur.com/Wplhc0r.png) try all choices of k to split in two
+![](/images/lectures/CS341/9-7.png) try all choices of k to split in two
 
 $M(i, j)$ = minimum search cost for binary search tree on items i ... j
 
-\$M(i, j) = \min*{k = i, ..., j} \{M(i, k) + M(k+1, j)\} + \sum*{t=i}^{j} pt, because every node is 1 deeper.
+$M(i, j) = \min*{k = i, ..., j} \{M(i, k) + M(k+1, j)\} + \sum*{t=i}^{j} pt$, because every node is 1 deeper.
 
 $P(i) = \sum_{t=1}^{i} p_i$
 
@@ -167,9 +167,9 @@ for r = 1, ..., n - 1
      for k = 2 ... i + r - 1
        temp <- M(i, k) (the best tree I made from i to k) + M(k+1, i+r)
        if temp < best
-		  then best <- temp
-	 end
-	 M(i, i+r) <- best + P(i + r) - P(i - 1)
+       then best <- temp
+      end
+    M(i, i+r) <- best + P(i + r) - P(i - 1)
    end
 end
 ```
