@@ -23,9 +23,9 @@
         </a>
       </div>
     </div>
-    <div id="flowers">
+    <!-- <div id="flowers">
       <img src="../assets/flowers.svg" />
-    </div>
+    </div>-->
   </div>
 </template>
 

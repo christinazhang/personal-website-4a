@@ -19,12 +19,12 @@ export default {
     "vue-markdown": VueMarkdown
   },
   methods: {
-    importFilePath: function() {
+    importFilePath() {
       import("../assets/" + this.filePath + ".md").then(
         file => (this.text = file.default)
       );
     },
-    didRender: function() {
+    didRender() {
       this.$nextTick(() => {
         Prism.highlightAll();
       });

@@ -1,5 +1,5 @@
 <template>
-  <div class="navPositioning" v-bind:class="[white ? {white} : {}]">
+  <div id="navPositioning" v-bind:class="[white ? {white} : {}]">
     <div class="nav" id="nav">
       <div id="home">
         <router-link to="/" exact>Christina Zhang</router-link>
@@ -13,30 +13,50 @@
 </template>
 
 <script>
+const navBarHeight = 54;
+
 export default {
   props: {
     showHome: { type: Boolean, default: true },
     white: { type: Boolean, default: false }
   },
-  mounted: function() {
+  methods: {
+    // Add border bottom or not
+    onScroll() {
+      var borderBottomStyle = "none";
+      if (window.top.scrollY > navBarHeight && !this.white) {
+        borderBottomStyle = "1px solid #eee";
+      }
+      document.getElementById(
+        "navPositioning"
+      ).style.borderBottom = borderBottomStyle;
+    }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
     if (!this.showHome) {
       document.getElementById("home").style.visibility = "hidden";
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
   }
 };
 </script>
 
 <style scoped lang="scss">
-.navPositioning {
-  position: absolute;
+#navPositioning {
+  position: sticky;
   top: 0;
   width: 100%;
+  background-color: white;
+  z-index: 5;
 }
 
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  padding: 22px 16px;
   margin: 0 auto;
 
   @media only screen and (min-width: 768px) {
@@ -64,20 +84,19 @@ a {
     color: #bed7a5;
   }
 
-  -o-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.navPositioning.white a {
-  color: #fff;
-  &.router-link-active {
+#navPositioning.white {
+  background-color: rgba(0, 0, 0, 0);
+  a {
     color: #fff;
-  }
-  &:hover {
-    color: #dbfffd;
+    &.router-link-active {
+      color: #fff;
+    }
+    &:hover {
+      color: #dbfffd;
+    }
   }
 }
 </style>

@@ -67,7 +67,7 @@ export default {
     };
   },
   methods: {
-    setCurrentFilePath: function(val) {
+    setCurrentFilePath(val) {
       if (val.params.course && val.params.lecture) {
         this.currentFilePath =
           "notes/" + val.params.course + "/lecture-" + val.params.lecture;
@@ -76,7 +76,7 @@ export default {
       }
     }
   },
-  created: function() {
+  created() {
     this.setCurrentFilePath(this.$route);
   },
   watch: {
@@ -90,13 +90,12 @@ export default {
 <style scoped lang="scss">
 #content {
   margin: 0 auto;
-  padding: 32px;
+  padding: 16px 32px;
   display: flex;
   flex-wrap: wrap;
 
   @media only screen and (min-width: 768px) {
     /* For desktop: */
-    margin-top: 20px;
     flex-wrap: nowrap;
     max-width: 1225px;
   }

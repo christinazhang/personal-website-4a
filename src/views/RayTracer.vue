@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <navBar v-bind:white="navBarInHeader" />
     <div id="header">
       <img id="headerImg" src="../assets/work/ray-tracer/images/header.png" />
       <img id="primitivesImg" src="../assets/work/ray-tracer/images/primitives.png" />
@@ -8,7 +9,6 @@
         <h3>CS488: Introduction to Computer Graphics Final Project</h3>
       </div>
     </div>
-    <navBar v-bind:white="true" />
     <div id="content">
       <markdown filePath="work/ray-tracer/writeup/1-Intro"></markdown>
       <imageGallery :imagesData="imagesData.Primitives" />
@@ -42,6 +42,8 @@ import MarkdownLoader from "../components/MarkdownLoader";
 import ImageGallery from "../components/ImageGallery";
 import * as ImagesData from "../assets/work/ray-tracer/writeup/ImageData";
 
+const maxScrollY = 410;
+
 export default {
   components: {
     navBar: NavBar,
@@ -50,14 +52,27 @@ export default {
   },
   data() {
     return {
-      imagesData: ImagesData
+      imagesData: ImagesData,
+      navBarInHeader: true
     };
+  },
+  methods: {
+    // Change styling of navbar based on scrollY position
+    onScroll() {
+      this.navBarInHeader = window.top.scrollY < maxScrollY;
+    }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
   }
 };
 </script>
 
 <style scoped lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Arvo:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap");
 h1,
 h2,
 h3 {
@@ -65,7 +80,7 @@ h3 {
 }
 
 h1 {
-  font-family: "Arvo", serif;
+  font-family: "Merriweather", serif;
 }
 
 #container {
@@ -75,7 +90,8 @@ h1 {
 #header {
   width: 100%;
   height: 627px;
-  position: relative;
+  position: absolute;
+  top: 0;
   text-align: center;
   overflow: hidden;
 }
@@ -107,6 +123,7 @@ h1 {
 
 #content {
   margin: 0 auto;
+  margin-top: 627px;
   padding: 32px;
 
   @media only screen and (min-width: 600px) {
@@ -121,6 +138,11 @@ h1 {
     padding-right: 25%;
     max-width: 800px;
   }
+
+  &::v-deep h2 {
+    font-family: "Merriweather", serif;
+  }
+
   &::v-deep a {
     color: #4fb1b3;
     text-decoration: none;
