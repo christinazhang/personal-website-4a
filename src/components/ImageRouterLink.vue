@@ -47,24 +47,36 @@ export default {
   height: 100%;
   position: relative;
   margin: 2px;
+  border-radius: 3px;
   overflow: hidden;
-  background-color: grey;
+  background-color: #333;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 #text {
-  position: absolute;
+  // Vertically center
+  position: relative;
   top: 50%;
   transform: translateY(-50%);
-  width: 100%;
+  // Horizontally center
+  margin: 0 auto;
+  // Prevent zooming out on text hover
+  pointer-events: none;
 
+  // Text
   color: #fff;
   text-align: center;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
 
   z-index: 1;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
   #title {
-    padding: 4px 8px;
+    padding: 0px 8px;
     display: block;
     font-family: "Merriweather", serif;
     font-size: 1.5em;
@@ -78,7 +90,8 @@ export default {
 }
 
 #background {
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;

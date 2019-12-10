@@ -72,7 +72,7 @@ export default {
         this.currentFilePath =
           "notes/" + val.params.course + "/lecture-" + val.params.lecture;
       } else {
-        this.currentFilePath = "";
+        this.currentFilePath = "notes/landing";
       }
     }
   },

@@ -2,7 +2,8 @@
 
 ## TODOs
 
-- "Work" page
+- Decorate the home page
+- Filter projects
 
 ## Project setup
 
