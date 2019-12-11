@@ -29,7 +29,7 @@
       <markdown filePath="work/ray-tracer/writeup/9-TextureMapping"></markdown>
       <imageGallery :imagesData="imagesData.BumpMapping" />
       <markdown filePath="work/ray-tracer/writeup/10-BumpMapping"></markdown>
-      <imageGallery :imagesData="imagesData.FinalScene" />
+      <imageGallery :imagesData="imagesData.FinalScene" :initialIndex="2" />
       <markdown filePath="work/ray-tracer/writeup/11-FinalScene"></markdown>
       <markdown filePath="work/ray-tracer/writeup/12-Acknowledgements"></markdown>
     </div>
