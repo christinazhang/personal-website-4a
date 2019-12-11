@@ -13,7 +13,7 @@
 </template>
 
 <script>
-const navBarHeight = 54;
+const navBarHeight = 64;
 
 export default {
   props: {

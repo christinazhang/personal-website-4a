@@ -1,19 +1,23 @@
 <template>
   <div id="container">
     <div id="inset">
-      <router-link v-if="!isExternalLink(to)" :to="to">
-        <div id="text">
-          <span id="title">{{title}}</span>
-          <span v-if="desc" id="desc">{{desc}}</span>
+      <router-link v-if="!isExternalLink" :to="to">
+        <div class="centeringContainer">
+          <div id="text">
+            <span id="title">{{title}}</span>
+            <span v-if="desc" id="desc">{{desc}}</span>
+          </div>
         </div>
-        <img id="background" class="zoom" :src="backgroundSrc" />
+        <div class="background zoom" :style="style" />
       </router-link>
       <a v-else :href="to" target="_blank">
-        <div id="text">
-          <span id="title">{{title}}</span>
-          <span v-if="desc" id="desc">{{desc}}</span>
+        <div class="centeringContainer">
+          <div id="text">
+            <span id="title">{{title}}</span>
+            <span v-if="desc" id="desc">{{desc}}</span>
+          </div>
         </div>
-        <img id="background" class="zoom" :src="backgroundSrc" />
+        <div class="background zoom" :style="style" />
       </a>
     </div>
   </div>
@@ -27,9 +31,12 @@ export default {
     backgroundSrc: String,
     to: { type: String, default: "" }
   },
-  methods: {
-    isExternalLink(url) {
-      return url.includes("http");
+  computed: {
+    isExternalLink() {
+      return this.to.includes("http");
+    },
+    style() {
+      return "background-image:url(" + this.backgroundSrc + ");";
     }
   }
 };
@@ -40,6 +47,15 @@ export default {
 #container {
   height: 350px;
   margin-bottom: 16px;
+}
+
+.centeringContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
 }
 
 #inset {
@@ -57,12 +73,6 @@ export default {
 }
 
 #text {
-  // Vertically center
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  // Horizontally center
-  margin: 0 auto;
   // Prevent zooming out on text hover
   pointer-events: none;
 
@@ -89,13 +99,14 @@ export default {
   }
 }
 
-#background {
+.background {
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  background-position: center;
   object-fit: cover;
-  z-index: 0;
 }
 
 .zoom {
