@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"babel-runtime": "^6.26.0",
-		"prismjs": "^1.17.1",
+		"prismjs": "^1.21.0",
 		"raw-loader": "^3.1.0",
 		"vue": "^2.6.10",
 		"vue-markdown": "^2.2.4",
